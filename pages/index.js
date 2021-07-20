@@ -4,14 +4,13 @@ import { useState, useCallback, useRef , useEffect} from 'react';
 import ReactMapGL, {FlyToInterpolator} from 'react-map-gl';
 import {easeCubic} from 'd3-ease';
 import { gsap } from "gsap";
+import { SplitText } from "gsap/dist/SplitText";
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 import Sidepanel from "../components/sidepanel";
 import Slideshow from "../components/swiper";
 import About from "../components/about";
 
-
-// const MAPBOX_TOKEN = process.env.MAPBOX_TOKEN_API;
 
 
 export async function getStaticProps(){
@@ -62,10 +61,28 @@ export default function Home({ projects, about }) {
   }, []);
 
   useEffect(() => {
+    let tl = gsap.timeline();
+      let col1 = aboutRef.current.children[0]
+      let col1p = col1.children
     if(menu.about){
-      console.log(aboutRef.current.children)
+      let mySplitText = new SplitText(col1p, {type:"lines", wordsClass: "split-line"
+    })
+    let words = mySplitText.lines;
+    gsap.set(col1p, {perspective: 400});
+      tl.set(aboutRef.current, { opacity: 0});
+      tl.to(aboutRef.current, { x: "0%", duration: 0.8, ease: "Power4.easeOut",});
+      tl.to(aboutRef.current,{  duration: 0.3, autoAlpha: 1,ease: "circ.out",});
+      tl.fromTo(words, {autoAlpha: 0},
+        {  duration: 0.3,
+             autoAlpha: 1,
+             ease: "circ.out",
+             stagger: 0.018
+        },
+        "+=0");
+
     }else{
-      console.log("about close")
+      tl.to(aboutRef.current,{  duration: 0.3, autoAlpha: 0, ease: "circ.out",});
+      tl.to(aboutRef.current, { x: "100%", duration: 1, ease: "Power4.easeOut",});
     }
   },[menu]);
 
@@ -90,14 +107,13 @@ export default function Home({ projects, about }) {
 
       slideShowRef.current.forEach((item, i) => {
         if(item.classList.contains("active")){
-            console.log(item)
-            gsap.to(item, { autoAlpha: 0, duration: 1, ease: "Power4.easeOut"});
+            gsap.to(item, { autoAlpha: 0, duration: 0.8, ease: "Power4.easeOut"});
         }
       });
     };
 
   const closeMenu = () => {
-      gsap.to(sidepanelRef.current, { x: "100%", duration: 1, ease: "Power4.easeOut",});
+      gsap.to(sidepanelRef.current, { x: "100%", duration: 0.8, ease: "Power4.easeOut", delay: 0.3});
       setMenu({
         open: false,
         about: false,

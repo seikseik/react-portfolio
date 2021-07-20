@@ -86,26 +86,6 @@ html{
   align-items: center;
   overflow: hidden;
 }
-.navigation{
-  position: absolute;
-  z-index: 2;
-  bottom: $spacing;
-  left: $spacing;
-}
-.about{
-  position: absolute;
-  z-index: 1;
-  top: $spacing;
-  right: $spacing;
-  .about-btn{
-  }
-}
-.archive{
-  position: absolute;
-  z-index: 1;
-  top: $spacing;
-  right: $spacing;
-}
 
 .navbar{
   position: fixed;
@@ -115,14 +95,17 @@ html{
   padding: $spacing;
   display: flex;
   justify-content: space-between;
+	mix-blend-mode: difference;
+	.logo{
+		color:white;
+	}
   z-index: 4;
 	.navlink{
-		&.open{
-			color:white;
-		}
+		color:white;
+		font-family:"Söhne";
+		cursor: pointer;
 	}
 }
-
 
 
 .CurrentProject{
@@ -140,23 +123,8 @@ html{
     left:0;
     height: 100% !important;
     z-index: 2;
-    background: #dddddd;
+    background: #e8f3fe;
     mix-blend-mode: difference;
-}
-.side-content{
-  position: fixed;
-  padding:30px;
-  box-sizing: border-box;
-  transform: translateX(100%);
-  width:100vw;
-  top:0px;
-  left:0;
-  height: 100% !important;
-  display: flex;
-  flex-direction: column;
-  z-index: 3;
-  color:white;
-  mix-blend-mode: exclusion;
 }
 
 // swiper
@@ -173,6 +141,7 @@ html{
     .slide-inner{
       height: 100vh;
       padding:$spacing;
+			padding-bottom: $spacing*3;
       display: flex;
       align-items: flex-start;
       justify-content: flex-end;
@@ -184,6 +153,7 @@ html{
         color:white;
         line-height: 10vw;
         mix-blend-mode: exclusion;
+				margin-bottom: 5px;
       }
 
       span{
@@ -193,6 +163,8 @@ html{
         border-radius: 50px;
         background: white;
         color:black;
+				font-family:"Söhne";
+				mix-blend-mode: exclusion;
       }
       h4{
         font-size: 20px;
@@ -213,9 +185,44 @@ html{
 	.swiper-slide{
 		&:first-child{
 			.title{
-				font-size: 7vw;
-				line-height: 7vw;
+				font-size: 6vw;
+				line-height: 6vw;
 			}
+		}
+	}
+}
+
+// about
+.side-content{
+  position: fixed;
+  padding:30px;
+  box-sizing: border-box;
+  transform: translateX(100%);
+  width:100vw;
+  top:0px;
+  left:0;
+  height: 100% !important;
+  z-index: 3;
+  color:#e8f3fe;
+  mix-blend-mode: exclusion;
+}
+.side-content{
+	display: flex;
+	padding:$spacing;
+	padding-top:15vh;
+	.left-col{
+		font-size: 20px;
+		flex:1;
+		padding-right: $spacing;
+		p{
+			margin-bottom:$spacing;
+		}
+	}
+	.right-col{
+		flex:1;
+		img{
+			width:100%;
+			height: auto;
 		}
 	}
 }
