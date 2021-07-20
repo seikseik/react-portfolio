@@ -1,3 +1,5 @@
+
+
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -81,7 +83,7 @@ html{
 }
 .navigation{
   position: absolute;
-  z-index: 1;
+  z-index: 2;
   bottom: $spacing;
   left: $spacing;
 }
@@ -110,7 +112,12 @@ html{
   display: flex;
   justify-content: space-between;
   font-weight: bold;
-  z-index: 1;
+  z-index: 4;
+	.navlink{
+		&.open{
+			color:white;
+		}
+	}
 }
 
 
@@ -130,7 +137,7 @@ html{
     left:0;
     height: 100% !important;
     z-index: 2;
-    background: white;
+    background: #dddddd;
     mix-blend-mode: difference;
 }
 .side-content{
@@ -150,7 +157,9 @@ html{
 }
 
 // swiper
-
+.slider-custom-cont{
+	width:100%;
+}
 .swiper-container{
   mix-blend-mode: exclusion;
   width:100%;
@@ -180,14 +189,11 @@ html{
         border-radius: 50px;
         background: white;
         color:black;
-        margin-left: $spacing/2;
-        margin-bottom: $spacing*2;
       }
       h4{
         font-size: 20px;
         color:white;
         margin-bottom: $spacing;
-        margin-left: $spacing/2;
       }
     }
   }
@@ -198,4 +204,14 @@ html{
 .swiper-pagination-bullet{
   background: #6c6c6c !important;
   opacity: 1 !important;
+}
+.swiper-wrapper{
+	.swiper-slide{
+		&:first-child{
+			.title{
+				font-size: 7vw;
+				line-height: 7vw;
+			}
+		}
+	}
 }

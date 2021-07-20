@@ -1,4 +1,6 @@
-import '../styles/globals.scss'
+// import '../public/fonts.css';
+import '../styles/globals.scss';
+
 // Import Swiper styles
 import 'swiper/swiper.scss';
 import 'swiper/components/effect-fade/effect-fade.scss';

@@ -1,0 +1,10 @@
+@font-face {
+  font-family: "SuisseRegular";
+  src: url("SuisseIntl-Regular.woff") format("woff"),
+       url("SuisseIntl-Regular.oft") format("opentype");
+}
+@font-face {
+  font-family: "SuisseItalic";
+  src: url("SuisseIntl-RegularItalic.woff") format("woff"),
+       url("SuisseIntl-RegularItalic.oft") format("opentype");
+}

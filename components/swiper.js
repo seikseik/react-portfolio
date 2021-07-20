@@ -7,9 +7,8 @@ SwiperCore.use([Navigation, Pagination, A11y, Mousewheel, EffectFade]);
 import { gsap } from "gsap";
 import { SplitText } from "gsap/dist/SplitText";
 
-export default function Slideshow({project}) {
+export default function Slideshow({project, addToslideShowRef, changeCoord}) {
 
-console.log(project)
 
   let titleRefs = useRef([]);
   titleRefs.current = [];
@@ -19,6 +18,7 @@ console.log(project)
        titleRefs.current.push(el);
      }
    }
+
 
   const startAnimationNext = () =>{
     titleRefs.current.forEach((item, i) => {
@@ -82,37 +82,41 @@ console.log(project)
   }
 
 
-
   const params = {
     container: ".container",
     pagination: ".swiper-pagination",
     direction: "vertical",
-    speed: 300,
+    speed: 400,
     effect: "fade",
     fadeEffect: {
       crossFade: true
     },
     mousewheel: {
-      sensitivity: 5,
+      sensitivity: 6,
     }
   };
 
 
   return (
+    <div className="slider-custom-cont">
     <Swiper {...params}
       slidesPerView={1}
       pagination={{ clickable: true }}
       onSlideNextTransitionStart={() => startAnimationNext()}
       onSlidePrevTransitionStart={() => startAnimationPrev()}
+      onSlideChangeTransitionStart={() => changeCoord()}
     >
         {project.map((item) => {
             return (
-              <SwiperSlide >
+              <SwiperSlide>
                {({ isActive }) => (
 
-              <div className="slide-inner">
-                <h1 ref={addToRefs} className={"title " + (isActive ? 'active' : '')}
-                 >{item.fields.title}
+                <div ref={addToslideShowRef} className={"slide-inner " + (isActive ? 'active' : '')} lat={item.fields.lat} lon={item.fields.lon}>
+                <h1
+                   ref={addToRefs}
+                   className={"title " + (isActive ? 'active' : '')}
+                 >
+                 {item.fields.title}
                  </h1>
                  <h4>{item.fields.subtitle}</h4>
                  <span data-attr="{item.fields.subtitle}"> See the project</span>
@@ -123,5 +127,6 @@ console.log(project)
           })
         }
     </Swiper>
+    </div>
   )
 }
