@@ -1,4 +1,4 @@
-// import '../public/fonts.css';
+import '../public/fonts.css';
 import '../styles/globals.scss';
 
 // Import Swiper styles

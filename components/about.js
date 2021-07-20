@@ -4,7 +4,7 @@ import Image from "next/image"
 import { gsap } from "gsap";
 
 
-export default function About({about}) {
+export default function About({about, forwardedRef}) {
 
   const aboutContent = about[0]
 
@@ -12,13 +12,12 @@ export default function About({about}) {
 
 
   return (
-
-      <div className="side-content">
-            <h1>{title}</h1>
-            {documentToReactComponents(content)}
-            <div>
-            <Image src={"http:"+image.fields.file.url} width="600" height="400" />
-            </div>
+      <div ref={forwardedRef}  className="side-content">
+          <h1>{title}</h1>
+          {documentToReactComponents(content)}
+          <div>
+          <Image src={"http:"+image.fields.file.url} width="600" height="400" />
+          </div>
       </div>
   )
 }

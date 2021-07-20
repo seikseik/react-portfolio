@@ -50,8 +50,13 @@ div, section{
   -moz-osx-font-smoothing: grayscale;
 }
 
-body{
-  font-family: sans-serif;
+
+.title{
+  font-family:"Söhne";
+}
+
+h1,h2,h3,h4,h5,a,p{
+  font-family:"Söhne";
 }
 
 $spacing: 15px;
@@ -93,7 +98,6 @@ html{
   top: $spacing;
   right: $spacing;
   .about-btn{
-    font-weight: bold;
   }
 }
 .archive{
@@ -111,7 +115,6 @@ html{
   padding: $spacing;
   display: flex;
   justify-content: space-between;
-  font-weight: bold;
   z-index: 4;
 	.navlink{
 		&.open{
@@ -165,6 +168,8 @@ html{
   width:100%;
   height: 100vh;
   .swiper-slide{
+		height: 100vh;
+		transition-timing-function:cubic-bezier(0,1.63,.79,1.09);
     .slide-inner{
       height: 100vh;
       padding:$spacing;
@@ -176,7 +181,6 @@ html{
       flex-direction: column;
       .title{
         font-size: 10vw;
-        font-family:sans-serif;
         color:white;
         line-height: 10vw;
         mix-blend-mode: exclusion;

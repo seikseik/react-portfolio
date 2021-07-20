@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import { createClient } from "contentful"
 import { useState, useCallback, useRef , useEffect} from 'react';
 import ReactMapGL, {FlyToInterpolator} from 'react-map-gl';
@@ -10,7 +11,7 @@ import Slideshow from "../components/swiper";
 import About from "../components/about";
 
 
-const MAPBOX_TOKEN = "pk.eyJ1IjoibWF0dGVvc2FjY2hpIiwiYSI6ImNrazFrdG5hNzBzM2oycW1manJvbDl6ZGoifQ.FOB7LTrZU3E4nF270xUyxA";
+// const MAPBOX_TOKEN = process.env.MAPBOX_TOKEN_API;
 
 
 export async function getStaticProps(){
@@ -39,6 +40,7 @@ export default function Home({ projects, about }) {
 
   let sidepanelRef = useRef(null);
   let slideShowRef = useRef([]);
+  let aboutRef = useRef();
 
   const addToslideShowRef = (el) =>{
     if(el && !slideShowRef.current.includes(el)){
@@ -46,9 +48,9 @@ export default function Home({ projects, about }) {
       }
     }
 
-
   const [menu, setMenu] = useState({
     open: false,
+    about: null,
   })
 
   const [viewport, setViewport] = useState({
@@ -59,13 +61,20 @@ export default function Home({ projects, about }) {
     pitch: 0
   }, []);
 
+  useEffect(() => {
+    if(menu.about){
+      console.log(aboutRef.current.children)
+    }else{
+      console.log("about close")
+    }
+  },[menu]);
 
 
   const onSelectProject = useCallback((latitude, longitude) => {
     setViewport({
       latitude,
       longitude,
-      zoom: 8,
+      zoom: 9,
       transitionDuration: 2000,
       transitionInterpolator: new FlyToInterpolator(),
       transitionEasing: easeCubic,
@@ -75,7 +84,8 @@ export default function Home({ projects, about }) {
   const openMenu = () => {
       gsap.to(sidepanelRef.current, { x: "0%", duration: 1, ease: "Power4.easeOut",});
       setMenu({
-        open: true
+        open: true,
+        about: true,
       })
 
       slideShowRef.current.forEach((item, i) => {
@@ -89,7 +99,8 @@ export default function Home({ projects, about }) {
   const closeMenu = () => {
       gsap.to(sidepanelRef.current, { x: "100%", duration: 1, ease: "Power4.easeOut",});
       setMenu({
-        open: false
+        open: false,
+        about: false,
       })
       slideShowRef.current.forEach((item, i) => {
         if(item.classList.contains("active")){
@@ -101,7 +112,6 @@ export default function Home({ projects, about }) {
   const changeCoord = () =>{
     slideShowRef.current.forEach((item, i) => {
       if(item.classList.contains("active")){
-        console.log(item)
         let latitude = Number(item.getAttribute("lat"));
         let longitude = Number(item.getAttribute("lon"));
         onSelectProject(latitude, longitude);
@@ -111,6 +121,13 @@ export default function Home({ projects, about }) {
 
 
   return (
+    <>
+    <Head>
+        <title>Matteo Sacchi </title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <link href="/fonts.css" rel="stylesheet"/>
+    </Head>
+
     <div className="home_container">
 
       <div className="navbar">
@@ -122,6 +139,8 @@ export default function Home({ projects, about }) {
           }
       </div>
 
+      <About  forwardedRef={aboutRef} about={about}/>
+
       <Slideshow changeCoord={changeCoord} addToslideShowRef={addToslideShowRef} forwardedRef={slideShowRef} project={projects}/>
 
       <Sidepanel forwardedRef={sidepanelRef} />
@@ -132,12 +151,14 @@ export default function Home({ projects, about }) {
               width="100%"
               height="100%"
               mapStyle="mapbox://styles/matteosacchi/ckr0ipix41y8p17mxlnaqerk7"
+              mapboxApiAccessToken={process.env.customKey}
               onViewportChange={setViewport}
               transitionInterpolator={new FlyToInterpolator()}
               dragRotate={false}
-              mapboxApiAccessToken={MAPBOX_TOKEN}
             />
       </div>
+
     </div>
+     </>
   )
 }

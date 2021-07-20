@@ -86,21 +86,25 @@ export default function Slideshow({project, addToslideShowRef, changeCoord}) {
     container: ".container",
     pagination: ".swiper-pagination",
     direction: "vertical",
-    speed: 400,
+    slidesPerView: 1,
+    centeredSlides: true,
+    speed: 1000,
     effect: "fade",
     fadeEffect: {
       crossFade: true
     },
     mousewheel: {
       sensitivity: 6,
-    }
+    },
+    watchSlidesProgress: true,
+    keyboard: true,
+    grabCursor: true,
   };
 
 
   return (
     <div className="slider-custom-cont">
     <Swiper {...params}
-      slidesPerView={1}
       pagination={{ clickable: true }}
       onSlideNextTransitionStart={() => startAnimationNext()}
       onSlidePrevTransitionStart={() => startAnimationPrev()}

@@ -1,10 +1,12 @@
 @font-face {
-  font-family: "SuisseRegular";
-  src: url("SuisseIntl-Regular.woff") format("woff"),
-       url("SuisseIntl-Regular.oft") format("opentype");
-}
-@font-face {
-  font-family: "SuisseItalic";
-  src: url("SuisseIntl-RegularItalic.woff") format("woff"),
-       url("SuisseIntl-RegularItalic.oft") format("opentype");
+  font-family: "Söhne";
+  src: url("./fonts/soehne-web-buch.eot"); /* IE9 Compat Modes */
+  src:
+    url("./fonts/soehne-web-buch.eot?#iefix") format("embedded-opentype"),
+    url("./fonts/soehne-web-buch.woff") format("woff"),
+    url("./fonts/soehne-web-buch.woff2") format("woff2"); /* Modern Browsers */
+
+  font-style: normal;
+  font-weight: normal;
+  text-rendering: optimizeLegibility;
 }
