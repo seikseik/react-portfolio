@@ -10,6 +10,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import Sidepanel from "../components/sidepanel";
 import Slideshow from "../components/swiper";
 import About from "../components/about";
+import Loader from "../components/loader";
 
 
 
@@ -37,6 +38,7 @@ export async function getStaticProps(){
 // inizio function index
 export default function Home({ projects, about }) {
 
+  let loaderRef = useRef(null);
   let sidepanelRef = useRef(null);
   let slideShowRef = useRef([]);
   let aboutRef = useRef();
@@ -47,6 +49,9 @@ export default function Home({ projects, about }) {
       }
     }
 
+  const [load, setLoad] = useState({
+    load:false,
+  })
   const [menu, setMenu] = useState({
     open: false,
     about: null,
@@ -86,6 +91,12 @@ export default function Home({ projects, about }) {
     }
   },[menu]);
 
+  useEffect(() =>{
+    if(load){
+    gsap.to(loaderRef.current, { x: "-100%", duration: 0.8, ease: "Power4.easeOut", display: "none", delay: 1.5});
+    }
+
+  },[load])
 
   const onSelectProject = useCallback((latitude, longitude) => {
     setViewport({
@@ -139,11 +150,12 @@ export default function Home({ projects, about }) {
   return (
     <>
     <Head>
-        <title>Matteo Sacchi </title>
+        <title>Matteo Sacchi — Designer & Developer</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <link href="/fonts.css" rel="stylesheet"/>
     </Head>
 
+    <Loader forwardedRef={loaderRef} />
     <div className="home_container">
 
       <div className="navbar">
@@ -155,9 +167,9 @@ export default function Home({ projects, about }) {
           }
       </div>
 
-      <About  forwardedRef={aboutRef} about={about}/>
+      <About forwardedRef={aboutRef} about={about}/>
 
-      <Slideshow changeCoord={changeCoord} addToslideShowRef={addToslideShowRef} forwardedRef={slideShowRef} project={projects}/>
+      <Slideshow load={load} changeCoord={changeCoord} addToslideShowRef={addToslideShowRef} forwardedRef={slideShowRef} project={projects}/>
 
       <Sidepanel forwardedRef={sidepanelRef} />
 
@@ -165,6 +177,9 @@ export default function Home({ projects, about }) {
         <ReactMapGL
               {...viewport}
               width="100%"
+              onLoad ={()=> setLoad({
+                  load:true
+                })}
               height="100%"
               mapStyle="mapbox://styles/matteosacchi/ckr0ipix41y8p17mxlnaqerk7"
               mapboxApiAccessToken={process.env.customKey}

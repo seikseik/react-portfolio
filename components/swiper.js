@@ -7,7 +7,7 @@ SwiperCore.use([Navigation, Pagination, A11y, Mousewheel, EffectFade]);
 import { gsap } from "gsap";
 import { SplitText } from "gsap/dist/SplitText";
 
-export default function Slideshow({project, addToslideShowRef, changeCoord}) {
+export default function Slideshow({project, addToslideShowRef, changeCoord, load}) {
 
 
   let titleRefs = useRef([]);
@@ -19,67 +19,50 @@ export default function Slideshow({project, addToslideShowRef, changeCoord}) {
      }
    }
 
+  useEffect(()=>{
+    if(load){
+      initAnimation();
+    }
+  }, [load])
+
+const textAnimation = (item, del) =>{
+  let tl = gsap.timeline(),
+      mySplitText = new SplitText(item, {type:"words,chars", wordsClass: "split-line"
+    }),
+    chars = mySplitText.chars;
+    gsap.set(item, {perspective: 400});
+
+  tl.fromTo(chars, {autoAlpha: 0},
+    {  duration: 1,
+         autoAlpha: 1,
+         ease: "circ.out",
+         stagger: 0.03,
+         delay: del
+    },
+    "+=0");
+}
 
   const startAnimationNext = () =>{
     titleRefs.current.forEach((item, i) => {
       if(item.classList.contains("active")){
-
-        let tl = gsap.timeline(),
-            mySplitText = new SplitText(item, {type:"words,chars", wordsClass: "split-line"
-          }),
-          chars = mySplitText.chars;
-          gsap.set(item, {perspective: 400});
-
-        // tl.from(chars,
-        //   {  duration: 0.4,
-        //     ease: "circ.out",
-        //     y: 70,
-        //     stagger: 0.02
-        //   },
-        //    "+=0");
-
-        tl.fromTo(chars, {autoAlpha: 0},
-          {  duration: 1,
-               autoAlpha: 1,
-               ease: "circ.out",
-               stagger: 0.03
-          },
-          "+=0");
+      textAnimation(item, 0);
       }
     });
   }
+
   const startAnimationPrev = () =>{
     titleRefs.current.forEach((item, i) => {
       if(item.classList.contains("active")){
-        titleRefs.current.forEach((item, i) => {
-          if(item.classList.contains("active")){
-
-            let tl = gsap.timeline(),
-                mySplitText = new SplitText(item, {type:"words,chars", wordsClass: "split-line"
-              }),
-                chars = mySplitText.chars;
-            gsap.set(item, {perspective: 400});
-
-            // tl.from(chars,
-            //   {  duration: 0.4,
-            //     ease: "circ.out",
-            //     y: 70,
-            //     stagger: 0.02
-            //   },
-            //    "+=0");
-
-            tl.fromTo(chars, {autoAlpha: 0},
-              {  duration: 1,
-                   autoAlpha: 1,
-                   ease: "circ.out",
-                   stagger: 0.03
-              },
-              "+=0");
-          }
-        });
+      textAnimation(item, 0);
       }
     });
   }
+
+  const initAnimation = () =>{
+    let item = titleRefs.current[0]
+    textAnimation(item, 0.2);
+  }
+
 
 
   const params = {
@@ -112,7 +95,7 @@ export default function Slideshow({project, addToslideShowRef, changeCoord}) {
     >
         {project.map((item) => {
             return (
-              <SwiperSlide>
+              <SwiperSlide key={item.sys.id}>
                {({ isActive }) => (
 
                 <div ref={addToslideShowRef} className={"slide-inner " + (isActive ? 'active' : '')} lat={item.fields.lat} lon={item.fields.lon}>
@@ -122,8 +105,11 @@ export default function Slideshow({project, addToslideShowRef, changeCoord}) {
                  >
                  {item.fields.title}
                  </h1>
-                 <h4>{item.fields.subtitle}</h4>
-                 <span data-attr="{item.fields.subtitle}"> See the project</span>
+
+                 {item.fields.subtitle ?   <h4>{item.fields.subtitle}</h4> : ''}
+
+                  {item.fields.subtitle ?   <span data-attr="{item.fields.subtitle}"> See the project</span> : ''}
+
               </div>
               )}
             </SwiperSlide>
