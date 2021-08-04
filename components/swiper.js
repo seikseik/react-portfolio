@@ -7,8 +7,7 @@ SwiperCore.use([Navigation, Pagination, A11y, Mousewheel, EffectFade]);
 import { gsap } from "gsap";
 import { SplitText } from "gsap/dist/SplitText";
 
-export default function Slideshow({project, addToslideShowRef, changeCoord, load}) {
-
+export default function Slideshow({project, addToslideShowRef, changeCoord, load, forwardedRef, changeProject}) {
 
   let titleRefs = useRef([]);
   titleRefs.current = [];
@@ -63,8 +62,6 @@ const textAnimation = (item, del) =>{
     textAnimation(item, 0.2);
   }
 
-
-
   const params = {
     container: ".container",
     pagination: ".swiper-pagination",
@@ -86,14 +83,14 @@ const textAnimation = (item, del) =>{
 
 
   return (
-    <div className="slider-custom-cont">
+    <div ref={forwardedRef} className="slider-custom-cont">
     <Swiper {...params}
       pagination={{ clickable: true }}
       onSlideNextTransitionStart={() => startAnimationNext()}
       onSlidePrevTransitionStart={() => startAnimationPrev()}
       onSlideChangeTransitionStart={() => changeCoord()}
     >
-        {project.map((item) => {
+        {project.map((item, index) => {
             return (
               <SwiperSlide key={item.sys.id}>
                {({ isActive }) => (
@@ -108,7 +105,7 @@ const textAnimation = (item, del) =>{
 
                  {item.fields.subtitle ?   <h4>{item.fields.subtitle}</h4> : ''}
 
-                  {item.fields.subtitle ?   <span data-attr="{item.fields.subtitle}"> See the project</span> : ''}
+                  {item.fields.subtitle ?  <span className="index-btn" data-attr={item.fields.subtitle} onClick={()=>changeProject(item.sys.id)}> See the project</span> : ''}
 
               </div>
               )}

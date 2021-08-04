@@ -10,8 +10,8 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import Sidepanel from "../components/sidepanel";
 import Slideshow from "../components/swiper";
 import About from "../components/about";
+import Project from "../components/project";
 import Loader from "../components/loader";
-
 
 
 export async function getStaticProps(){
@@ -35,19 +35,14 @@ export async function getStaticProps(){
   }
 }
 
-// inizio function index
 export default function Home({ projects, about }) {
 
   let loaderRef = useRef(null);
   let sidepanelRef = useRef(null);
+  let navRef = useRef(null);
   let slideShowRef = useRef([]);
   let aboutRef = useRef();
-
-  const addToslideShowRef = (el) =>{
-    if(el && !slideShowRef.current.includes(el)){
-        slideShowRef.current.push(el);
-      }
-    }
+  let projectRef = useRef(null);
 
   const [load, setLoad] = useState({
     load:false,
@@ -56,14 +51,14 @@ export default function Home({ projects, about }) {
     open: false,
     about: null,
   })
-
+  const [currentProj, setProj] = useState(null);
   const [viewport, setViewport] = useState({
     latitude: 44.734936,
     longitude: 11.017421,
     zoom: 6.08,
     bearing: 0,
     pitch: 0
-  }, []);
+  }, [1]);
 
   useEffect(() => {
     let tl = gsap.timeline();
@@ -75,7 +70,7 @@ export default function Home({ projects, about }) {
     let words = mySplitText.lines;
     gsap.set(col1p, {perspective: 400});
       tl.set(aboutRef.current, { opacity: 0});
-      tl.to(aboutRef.current, { x: "0%", duration: 0.8, ease: "Power4.easeOut",});
+      tl.to(aboutRef.current, { x: "0%", duration: 0.5, ease: "Power4.easeOut",});
       tl.to(aboutRef.current,{  duration: 0.3, autoAlpha: 1,ease: "circ.out",});
       tl.fromTo(words, {autoAlpha: 0},
         {  duration: 0.3,
@@ -84,7 +79,6 @@ export default function Home({ projects, about }) {
              stagger: 0.018
         },
         "+=0");
-
     }else{
       tl.to(aboutRef.current,{  duration: 0.3, autoAlpha: 0, ease: "circ.out",});
       tl.to(aboutRef.current, { x: "100%", duration: 1, ease: "Power4.easeOut",});
@@ -93,10 +87,13 @@ export default function Home({ projects, about }) {
 
   useEffect(() =>{
     if(load){
-    gsap.to(loaderRef.current, { x: "-100%", duration: 0.8, ease: "Power4.easeOut", display: "none", delay: 1.5});
+    let tl = gsap.timeline()
+    tl.to(loaderRef.current.children[0], { autoAlpha: 0, duration: 0.4, ease: "Power3.easeInOut", delay: 1}),
+    tl.to(loaderRef.current, { autoAlpha: 0, duration: 0.6, ease: "Power3.easeInOut", display: "none"});
     }
 
   },[load])
+
 
   const onSelectProject = useCallback((latitude, longitude) => {
     setViewport({
@@ -109,12 +106,18 @@ export default function Home({ projects, about }) {
     });
   }, []);
 
+  const addToslideShowRef = (el) =>{
+    if(el && !slideShowRef.current.includes(el)){
+        slideShowRef.current.push(el);
+      }
+    }
   const openMenu = () => {
       gsap.to(sidepanelRef.current, { x: "0%", duration: 1, ease: "Power4.easeOut",});
       setMenu({
         open: true,
         about: true,
       })
+      gsap.to(navRef.current.children[0].firstChild, { autoAlpha: 0, duration: 0.3, ease: "Power4.easeOut",});
 
       slideShowRef.current.forEach((item, i) => {
         if(item.classList.contains("active")){
@@ -122,20 +125,19 @@ export default function Home({ projects, about }) {
         }
       });
     };
-
   const closeMenu = () => {
       gsap.to(sidepanelRef.current, { x: "100%", duration: 0.8, ease: "Power4.easeOut", delay: 0.3});
       setMenu({
         open: false,
         about: false,
       })
+      gsap.to(navRef.current.children[0].firstChild, { autoAlpha: 1, duration: 0.6, ease: "Power4.easeOut",});
       slideShowRef.current.forEach((item, i) => {
         if(item.classList.contains("active")){
             gsap.to(item, { autoAlpha: 1, duration: 1, ease: "Power4.easeOut"});
         }
       });
     };
-
   const changeCoord = () =>{
     slideShowRef.current.forEach((item, i) => {
       if(item.classList.contains("active")){
@@ -144,6 +146,10 @@ export default function Home({ projects, about }) {
         onSelectProject(latitude, longitude);
       }
     });
+  }
+
+  const changeProject = (id) =>{
+    setProj(id);
   }
 
 
@@ -167,9 +173,11 @@ export default function Home({ projects, about }) {
           }
       </div>
 
+      <Project forwardedRef={projectRef} projects={projects} currentProj={currentProj}/>
+
       <About forwardedRef={aboutRef} about={about}/>
 
-      <Slideshow load={load} changeCoord={changeCoord} addToslideShowRef={addToslideShowRef} forwardedRef={slideShowRef} project={projects}/>
+      <Slideshow changeProject={changeProject} load={load} changeCoord={changeCoord} addToslideShowRef={addToslideShowRef} forwardedRef={slideShowRef, navRef} project={projects}/>
 
       <Sidepanel forwardedRef={sidepanelRef} />
 
