@@ -49,6 +49,8 @@ export default function Home({ projects, about }) {
   })
   const [menu, setMenu] = useState({
     open: false,
+  })
+  const [aboutMenu, setAboutMenu] = useState({
     about: null,
   })
   const [currentProj, setProj] = useState(null);
@@ -64,7 +66,7 @@ export default function Home({ projects, about }) {
     let tl = gsap.timeline();
       let col1 = aboutRef.current.children[0]
       let col1p = col1.children
-    if(menu.about){
+    if(aboutMenu.about){
       let mySplitText = new SplitText(col1p, {type:"lines", wordsClass: "split-line"
     })
     let words = mySplitText.lines;
@@ -83,8 +85,7 @@ export default function Home({ projects, about }) {
       tl.to(aboutRef.current,{  duration: 0.3, autoAlpha: 0, ease: "circ.out",});
       tl.to(aboutRef.current, { x: "100%", duration: 1, ease: "Power4.easeOut",});
     }
-  },[menu]);
-
+  },[aboutMenu]);
 
   useEffect(() =>{
     if(load){
@@ -116,7 +117,6 @@ export default function Home({ projects, about }) {
       gsap.to(sidepanelRef.current, { x: "0%", duration: 1, ease: "Power4.easeOut",});
       setMenu({
         open: true,
-        about: true,
       })
       gsap.to(navRef.current.children[0].firstChild, { autoAlpha: 0, duration: 0.3, ease: "Power4.easeOut",});
 
@@ -130,7 +130,6 @@ export default function Home({ projects, about }) {
       gsap.to(sidepanelRef.current, { x: "100%", duration: 0.8, ease: "Power4.easeOut", delay: 0.3});
       setMenu({
         open: false,
-        about: false,
       })
       gsap.to(navRef.current.children[0].firstChild, { autoAlpha: 1, duration: 0.6, ease: "Power4.easeOut",});
       slideShowRef.current.forEach((item, i) => {
@@ -140,10 +139,6 @@ export default function Home({ projects, about }) {
       });
     };
 
-  // const openAbout = () =>{
-  //
-  // }
-  //
   const changeCoord = () =>{
     slideShowRef.current.forEach((item, i) => {
       if(item.classList.contains("active")){
@@ -175,8 +170,8 @@ export default function Home({ projects, about }) {
         <div className="logo"><h1>Matteo Sacchi</h1></div>
           {
             (menu.open)
-            ?   <div onClick={() => closeMenu()} className="navlink open">Close</div>
-            :   <div onClick={() => openMenu()} className="navlink">About</div>
+            ?   <div onClick={(event) => { closeMenu(); setAboutMenu({about: false});}} className="navlink open">Close</div>
+            :   <div onClick={(event) => { openMenu(); setAboutMenu({about: true});}} className="navlink">About</div>
           }
       </div>
 
