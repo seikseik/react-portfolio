@@ -9,9 +9,10 @@ export default function Project({ forwardedRef, currentProj, projects}) {
   const current = projects.map((item) => {
     if(item.sys.id == currentProj){
       return(
-        <div key={item.sys.id} ref={forwardedRef} className="Project-container side-content-project">
+        <div key={item.sys.id} ref={forwardedRef} className="project-containe">
             <div className="left-col">
               <h1>{item.fields.title}</h1>
+              {documentToReactComponents(item.fields.content1)}
             </div>
             <div className="right-col">
               <div className="image-container">
@@ -23,10 +24,9 @@ export default function Project({ forwardedRef, currentProj, projects}) {
       )
     }
   })
-
   if(currentProj != null){
     return (
-      <div> {current}</div>
+      <div className="side-content-project"> {current}</div>
     )
   }else{
     return null

@@ -85,6 +85,7 @@ export default function Home({ projects, about }) {
     }
   },[menu]);
 
+
   useEffect(() =>{
     if(load){
     let tl = gsap.timeline()
@@ -138,6 +139,11 @@ export default function Home({ projects, about }) {
         }
       });
     };
+
+  // const openAbout = () =>{
+  //
+  // }
+  //
   const changeCoord = () =>{
     slideShowRef.current.forEach((item, i) => {
       if(item.classList.contains("active")){
@@ -149,6 +155,7 @@ export default function Home({ projects, about }) {
   }
 
   const changeProject = (id) =>{
+    openMenu();
     setProj(id);
   }
 
@@ -167,9 +174,9 @@ export default function Home({ projects, about }) {
       <div className="navbar">
         <div className="logo"><h1>Matteo Sacchi</h1></div>
           {
-               (menu.open)
-                 ?   <div onClick={() => closeMenu()} className="navlink open">Close</div>
-                 :   <div onClick={() => openMenu()} className="navlink">About</div>
+            (menu.open)
+            ?   <div onClick={() => closeMenu()} className="navlink open">Close</div>
+            :   <div onClick={() => openMenu()} className="navlink">About</div>
           }
       </div>
 
