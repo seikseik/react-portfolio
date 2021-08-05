@@ -21,6 +21,7 @@
     "react-lazy-load-image-component": "^1.5.1",
     "react-map-gl": "^6.1.16",
     "react-mapbox-gl": "^5.1.1",
+    "react-player": "^2.9.0",
     "react-spring": "^9.2.4",
     "sass": "^1.35.2",
     "swiper": "^6.7.5"

@@ -53,6 +53,9 @@ export default function Home({ projects, about }) {
   const [aboutMenu, setAboutMenu] = useState({
     about: null,
   })
+  const [projMenu, setProjMenu] = useState({
+    projMenu: null,
+  })
   const [currentProj, setProj] = useState(null);
   const [viewport, setViewport] = useState({
     latitude: 44.734936,
@@ -62,8 +65,9 @@ export default function Home({ projects, about }) {
     pitch: 0
   }, [1]);
 
+// animazione contentuto about
   useEffect(() => {
-    let tl = gsap.timeline();
+      let tl = gsap.timeline();
       let col1 = aboutRef.current.children[0]
       let col1p = col1.children
     if(aboutMenu.about){
@@ -87,6 +91,36 @@ export default function Home({ projects, about }) {
     }
   },[aboutMenu]);
 
+// animazione contentuto progetto
+  useEffect(() => {
+    if(projectRef.current != null){
+      let tl = gsap.timeline();
+      let project = projectRef.current.children[0];
+      let col1 = project.children[0];
+      let col2 = project.children[1];
+      let col1txt = col1.children;
+      if(projMenu.projMenu){
+
+        let mySplitText = new SplitText(col1txt[1], {type:"lines", wordsClass: "split-line"})
+        let words = mySplitText.lines;
+
+        gsap.set(col1txt[1], {perspective: 400});
+        gsap.set(projectRef.current,{ autoAlpha: 1});
+        tl.set(col1, { opacity: 0});
+        tl.set(col2, { opacity: 0});
+        tl.to(projectRef.current, { x: "0%", duration: 0.5, ease: "Power4.easeOut",});
+        tl.to(col1,{  duration: 0.3, autoAlpha: 1,ease: "circ.out",});
+        tl.to(col2,{  duration: 0.3, autoAlpha: 1,ease: "circ.out",});
+        tl.fromTo(words, {autoAlpha: 0},{ duration: 0.3,autoAlpha: 1,ease: "circ.out",stagger: 0.018},"+=0");
+
+      }else{
+        tl.to(projectRef.current,{  duration: 0.3, autoAlpha: 0, ease: "circ.out",});
+        tl.to(projectRef.current, { x: "100%", duration: 1, ease: "Power4.easeOut",});
+      }
+    }
+  },[projMenu]);
+
+// animazione loader
   useEffect(() =>{
     if(load){
     let tl = gsap.timeline()
@@ -95,7 +129,6 @@ export default function Home({ projects, about }) {
     }
 
   },[load])
-
 
   const onSelectProject = useCallback((latitude, longitude) => {
     setViewport({
@@ -107,7 +140,6 @@ export default function Home({ projects, about }) {
       transitionEasing: easeCubic,
     });
   }, []);
-
   const addToslideShowRef = (el) =>{
     if(el && !slideShowRef.current.includes(el)){
         slideShowRef.current.push(el);
@@ -138,7 +170,6 @@ export default function Home({ projects, about }) {
         }
       });
     };
-
   const changeCoord = () =>{
     slideShowRef.current.forEach((item, i) => {
       if(item.classList.contains("active")){
@@ -148,12 +179,19 @@ export default function Home({ projects, about }) {
       }
     });
   }
-
   const changeProject = (id) =>{
     openMenu();
     setProj(id);
+    setProjMenu({projMenu: true});
   }
-
+  const checkMenuOpen = ()=>{
+    if(aboutMenu){
+      setAboutMenu({about: false});
+    }
+    if(projMenu.projMenu){
+      setProjMenu({projMenu: false});
+    }
+  }
 
   return (
     <>
@@ -170,7 +208,7 @@ export default function Home({ projects, about }) {
         <div className="logo"><h1>Matteo Sacchi</h1></div>
           {
             (menu.open)
-            ?   <div onClick={(event) => { closeMenu(); setAboutMenu({about: false});}} className="navlink open">Close</div>
+            ?   <div onClick={(event) => { closeMenu(); checkMenuOpen();}} className="navlink open">Close</div>
             :   <div onClick={(event) => { openMenu(); setAboutMenu({about: true});}} className="navlink">About</div>
           }
       </div>

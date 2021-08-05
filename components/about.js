@@ -14,10 +14,10 @@ export default function About({about, forwardedRef}) {
 
   return (
       <div ref={forwardedRef}  className="side-content">
-
           <div className="left-col">
             {documentToReactComponents(content)}
           </div>
+
           <div className="right-col">
             <div className="image-container">
               <LazyLoadImage
