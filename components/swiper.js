@@ -7,22 +7,23 @@ SwiperCore.use([Navigation, Pagination, A11y, Mousewheel, EffectFade]);
 import { gsap } from "gsap";
 import { SplitText } from "gsap/dist/SplitText";
 
-export default function Slideshow({project, addToslideShowRef, changeCoord, load, forwardedRef, changeProject}) {
+export default function Slideshow({project, addToslideShowRef, changeCoord, load, forwardedRef, changeProject, projNavRef, changeProjectFromNav}) {
 
-  let titleRefs = useRef([]);
+let titleRefs = useRef([]);
   titleRefs.current = [];
 
-   const addToRefs = (el) =>{
+let currentProj = useRef(null);
+const addToRefs = (el) =>{
      if(el && !titleRefs.current.includes(el)){
        titleRefs.current.push(el);
      }
    }
 
-  useEffect(()=>{
+useEffect(()=>{
     if(load){
       initAnimation();
     }
-  }, [load])
+}, [load])
 
 const textAnimation = (item, del) =>{
   let tl = gsap.timeline(),
@@ -41,7 +42,7 @@ const textAnimation = (item, del) =>{
     "+=0");
 }
 
-  const startAnimationNext = () =>{
+const startAnimationNext = () =>{
     titleRefs.current.forEach((item, i) => {
       if(item.classList.contains("active")){
       textAnimation(item, 0);
@@ -49,7 +50,7 @@ const textAnimation = (item, del) =>{
     });
   }
 
-  const startAnimationPrev = () =>{
+const startAnimationPrev = () =>{
     titleRefs.current.forEach((item, i) => {
       if(item.classList.contains("active")){
       textAnimation(item, 0);
@@ -57,12 +58,12 @@ const textAnimation = (item, del) =>{
     });
   }
 
-  const initAnimation = () =>{
+const initAnimation = () =>{
     let item = titleRefs.current[0]
     textAnimation(item, 0.2);
   }
 
-  const params = {
+const params = {
     container: ".container",
     pagination: ".swiper-pagination",
     direction: "vertical",
@@ -81,10 +82,22 @@ const textAnimation = (item, del) =>{
     grabCursor: true,
   };
 
+const projNavigation=()=>{
+  changeProjectFromNav(currentProj.current.id);
+}
 
   return (
     <div ref={forwardedRef} className="slider-custom-cont">
+    <div ref={projNavRef} className="project-navigation">
+      <span onClick={() => projNavigation()} className="prevProj">PREV</span>
+      <span onClick={() => projNavigation()} className="nextProj">NEXT</span>
+    </div>
+
     <Swiper {...params}
+      navigation={{
+          prevEl: ".prevProj",
+          nextEl: ".nextProj",
+        }}
       pagination={{ clickable: true }}
       onSlideNextTransitionStart={() => startAnimationNext()}
       onSlidePrevTransitionStart={() => startAnimationPrev()}
@@ -105,8 +118,7 @@ const textAnimation = (item, del) =>{
 
                  {item.fields.subtitle ?   <h4>{item.fields.subtitle}</h4> : ''}
 
-                  {item.fields.subtitle ?  <span className="index-btn" data-attr={item.fields.subtitle} onClick={()=>changeProject(item.sys.id)}> See the project</span> : ''}
-
+                  {item.fields.subtitle ?  <span ref={currentProj} id={item.sys.id} className="index-btn" data-attr={item.fields.subtitle} onClick={()=>changeProject(item.sys.id)}> See the project</span> : ''}
               </div>
               )}
             </SwiperSlide>

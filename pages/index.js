@@ -44,6 +44,8 @@ export default function Home({ projects, about }) {
   let aboutRef = useRef();
   let projectRef = useRef(null);
 
+  let projectNavRef = useRef(null);
+
   const [load, setLoad] = useState({
     load:false,
   })
@@ -56,6 +58,7 @@ export default function Home({ projects, about }) {
   const [projMenu, setProjMenu] = useState({
     projMenu: null,
   })
+
   const [currentProj, setProj] = useState(null);
   const [viewport, setViewport] = useState({
     latitude: 44.734936,
@@ -91,31 +94,55 @@ export default function Home({ projects, about }) {
     }
   },[aboutMenu]);
 
+
+const animProjOpen =()=>{
+  let tl = gsap.timeline();
+  let project = projectRef.current.children[0];
+  let col1 = project.children[0];
+  let col2 = project.children[1];
+  let col1txt = col1.children;
+
+  // anim titolo
+  let animTitle = gsap.timeline(),
+      titleSplit = new SplitText(col1txt[0], {type:"words,chars", wordsClass: "split-line"}),
+    chars = titleSplit.chars;
+    gsap.set(col1txt[0], {perspective: 400});
+  animTitle.fromTo(chars, {autoAlpha: 0},{  duration: 1,autoAlpha: 1,ease: "circ.out",stagger: 0.03, delay: 1},"+=0");
+  // anim testo
+  let mySplitText = new SplitText(col1txt[1], {type:"lines", wordsClass: "split-line"})
+
+  let words = mySplitText.lines;
+  gsap.set(col1txt[1], {perspective: 400});
+  gsap.set(projectRef.current,{ autoAlpha: 1});
+  gsap.set(col1txt[2], {autoAlpha: 0});
+  tl.set(col1, { opacity: 0});
+  tl.set(col2, { opacity: 0});
+  tl.to(projectRef.current, { x: "0%", duration: 0.5, ease: "Power4.easeOut",});
+  tl.to(col1,{  duration: 0.3, autoAlpha: 1,ease: "circ.out",});
+  tl.to(col2,{  duration: 0.3, autoAlpha: 1,ease: "circ.out",});
+  tl.fromTo(words, {autoAlpha: 0},{ duration: 0.3,autoAlpha: 1,ease: "circ.out",stagger: 0.018},"+=0");
+  gsap.to(col1txt[2], {duration: 0.8, autoAlpha: 1, ease: "circ.out", delay: 1.3});
+  gsap.to(projectNavRef.current, {duration: 0.8, autoAlpha: 1, ease: "circ.out", delay: 1.3});
+
+}
+const animProjClose =()=>{
+  let tl = gsap.timeline();
+  let project = projectRef.current.children[0];
+  let col1 = project.children[0];
+  let col2 = project.children[1];
+  let col1txt = col1.children;
+  tl.to(projectRef.current,{  duration: 0.3, autoAlpha: 0, ease: "circ.out",});
+  tl.to(projectRef.current, { x: "100%", duration: 1, ease: "Power4.easeOut",});
+  gsap.to(projectNavRef.current, {duration: 0.8, autoAlpha: 0, ease: "circ.out"});
+}
+
 // animazione contentuto progetto
   useEffect(() => {
     if(projectRef.current != null){
-      let tl = gsap.timeline();
-      let project = projectRef.current.children[0];
-      let col1 = project.children[0];
-      let col2 = project.children[1];
-      let col1txt = col1.children;
       if(projMenu.projMenu){
-
-        let mySplitText = new SplitText(col1txt[1], {type:"lines", wordsClass: "split-line"})
-        let words = mySplitText.lines;
-
-        gsap.set(col1txt[1], {perspective: 400});
-        gsap.set(projectRef.current,{ autoAlpha: 1});
-        tl.set(col1, { opacity: 0});
-        tl.set(col2, { opacity: 0});
-        tl.to(projectRef.current, { x: "0%", duration: 0.5, ease: "Power4.easeOut",});
-        tl.to(col1,{  duration: 0.3, autoAlpha: 1,ease: "circ.out",});
-        tl.to(col2,{  duration: 0.3, autoAlpha: 1,ease: "circ.out",});
-        tl.fromTo(words, {autoAlpha: 0},{ duration: 0.3,autoAlpha: 1,ease: "circ.out",stagger: 0.018},"+=0");
-
+      animProjOpen();
       }else{
-        tl.to(projectRef.current,{  duration: 0.3, autoAlpha: 0, ease: "circ.out",});
-        tl.to(projectRef.current, { x: "100%", duration: 1, ease: "Power4.easeOut",});
+      animProjClose();
       }
     }
   },[projMenu]);
@@ -127,7 +154,6 @@ export default function Home({ projects, about }) {
     tl.to(loaderRef.current.children[0], { autoAlpha: 0, duration: 0.4, ease: "Power3.easeInOut", delay: 1}),
     tl.to(loaderRef.current, { autoAlpha: 0, duration: 0.6, ease: "Power3.easeInOut", display: "none"});
     }
-
   },[load])
 
   const onSelectProject = useCallback((latitude, longitude) => {
@@ -145,17 +171,15 @@ export default function Home({ projects, about }) {
         slideShowRef.current.push(el);
       }
     }
+
   const openMenu = () => {
       gsap.to(sidepanelRef.current, { x: "0%", duration: 1, ease: "Power4.easeOut",});
       setMenu({
         open: true,
       })
-      gsap.to(navRef.current.children[0].firstChild, { autoAlpha: 0, duration: 0.3, ease: "Power4.easeOut",});
 
       slideShowRef.current.forEach((item, i) => {
-        if(item.classList.contains("active")){
-            gsap.to(item, { autoAlpha: 0, duration: 0.8, ease: "Power4.easeOut"});
-        }
+        gsap.to(item, { autoAlpha: 0, duration: 0.8, ease: "Power4.easeOut"});
       });
     };
   const closeMenu = () => {
@@ -163,13 +187,17 @@ export default function Home({ projects, about }) {
       setMenu({
         open: false,
       })
-      gsap.to(navRef.current.children[0].firstChild, { autoAlpha: 1, duration: 0.6, ease: "Power4.easeOut",});
+
       slideShowRef.current.forEach((item, i) => {
-        if(item.classList.contains("active")){
             gsap.to(item, { autoAlpha: 1, duration: 1, ease: "Power4.easeOut"});
-        }
       });
     };
+
+  const changeProjectFromNav = (id) =>{
+    setProj(id);
+    animProjOpen();
+  }
+
   const changeCoord = () =>{
     slideShowRef.current.forEach((item, i) => {
       if(item.classList.contains("active")){
@@ -192,6 +220,7 @@ export default function Home({ projects, about }) {
       setProjMenu({projMenu: false});
     }
   }
+
 
   return (
     <>
@@ -217,7 +246,7 @@ export default function Home({ projects, about }) {
 
       <About forwardedRef={aboutRef} about={about}/>
 
-      <Slideshow changeProject={changeProject} load={load} changeCoord={changeCoord} addToslideShowRef={addToslideShowRef} forwardedRef={slideShowRef, navRef} project={projects}/>
+      <Slideshow changeProjectFromNav={changeProjectFromNav} changeProject={changeProject} load={load} changeCoord={changeCoord} addToslideShowRef={addToslideShowRef} forwardedRef={slideShowRef, navRef} projNavRef={projectNavRef} project={projects}/>
 
       <Sidepanel forwardedRef={sidepanelRef} />
 

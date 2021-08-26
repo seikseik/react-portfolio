@@ -178,6 +178,23 @@ html{
 }
 
 // swiper
+.project-navigation{
+	position: absolute;
+	opacity: 0;
+	bottom:$spacing;
+	left: $spacing;
+	width:200px;
+	display: flex;
+	z-index: 999;
+	mix-blend-mode: difference;
+	color:white;
+	font-size: 30px;
+	font-family:"Söhne";
+	.nextProj{
+		margin-left:$spacing;
+	}
+}
+
 .slider-custom-cont{
 	width:100%;
 }
@@ -264,25 +281,55 @@ html{
 			position: sticky;
 			top:15vh;
 			height: 80vh;
-			width:50%;
+			width:45%;
 			color:#e8f3fe;
 			mix-blend-mode: exclusion;
 			padding: $spacing;
 			h1{
-				font-size: 50px;
+				font-size: 60px;
 				margin-bottom: $spacing;
 			}
-			p{
-				line-height: 1.4;
-			}
+			p{line-height: 1.4;}
 		}
 		.right-col{
-			width:50%;
+			width:55%;
 			img{
 				width:100%;
 				height: auto;
 				display:flex;
 			}
+		}
+	}
+	.proj-credit{
+		display: flex;
+		margin-top:$spacing*2;
+		.proj-col-left{
+			width:50%;
+			display: flex;
+			a{
+				padding: 8px 15px;
+				font-size: 15px;
+				line-height: 1.1;
+				border-radius: 50px;
+				background: #e8f3fe;
+				color: black;
+				margin-right: $spacing;
+				text-decoration: none;
+				font-family: "Söhne";
+				mix-blend-mode: exclusion;
+				transition: .2s ease;
+				&:hover{
+					background: white;
+				}
+			}
+		}
+		.proj-col-right{
+			width:50%;
+			display: flex;
+			flex-direction: column;
+			font-size: 13px;
+			color:#e8f3fe;
+			font-family: "Söhne";
 		}
 	}
 }
