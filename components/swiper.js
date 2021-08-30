@@ -10,14 +10,21 @@ import { SplitText } from "gsap/dist/SplitText";
 export default function Slideshow({project, addToslideShowRef, changeCoord, load, forwardedRef, changeProject, projNavRef, changeProjectFromNav}) {
 
 let titleRefs = useRef([]);
-  titleRefs.current = [];
-
-let currentProj = useRef(null);
+titleRefs.current = [];
 const addToRefs = (el) =>{
      if(el && !titleRefs.current.includes(el)){
        titleRefs.current.push(el);
      }
    }
+
+let currentProjRef = useRef([]);
+currentProjRef.current = [];
+
+const addToProjRefs = (el) =>{
+    if(el && !currentProjRef.current.includes(el)){
+       currentProjRef.current.push(el);
+     }
+  }
 
 useEffect(()=>{
     if(load){
@@ -41,6 +48,7 @@ const textAnimation = (item, del) =>{
     },
     "+=0");
 }
+
 
 const startAnimationNext = () =>{
     titleRefs.current.forEach((item, i) => {
@@ -82,15 +90,20 @@ const params = {
     grabCursor: true,
   };
 
-const projNavigation=()=>{
-  changeProjectFromNav(currentProj.current.id);
+const projNavigation=(e)=>{
+console.log(currentProjRef);
+currentProjRef.current.forEach((item, i) => {
+  if(item.classList.contains("active")){
+    changeProjectFromNav(item.id);
+  }
+});
 }
 
   return (
     <div ref={forwardedRef} className="slider-custom-cont">
     <div ref={projNavRef} className="project-navigation">
-      <span onClick={() => projNavigation()} className="prevProj">PREV</span>
-      <span onClick={() => projNavigation()} className="nextProj">NEXT</span>
+      <span onClick={(e) => projNavigation(e)} className="prevProj">PREV</span>
+      <span onClick={(e) => projNavigation(e)} className="nextProj">NEXT</span>
     </div>
 
     <Swiper {...params}
@@ -118,7 +131,7 @@ const projNavigation=()=>{
 
                  {item.fields.subtitle ?   <h4>{item.fields.subtitle}</h4> : ''}
 
-                  {item.fields.subtitle ?  <span ref={currentProj} id={item.sys.id} className="index-btn" data-attr={item.fields.subtitle} onClick={()=>changeProject(item.sys.id)}> See the project</span> : ''}
+                  {item.fields.subtitle ?  <span ref={addToProjRefs} id={item.sys.id} className={"index-btn " + (isActive ? 'active' : '')} data-attr={item.fields.subtitle} onClick={()=>changeProject(item.sys.id)}> See the project</span> : ''}
               </div>
               )}
             </SwiperSlide>

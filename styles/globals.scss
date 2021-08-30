@@ -194,6 +194,9 @@ html{
 		margin-left:$spacing;
 	}
 }
+.swiper-button-disabled{
+	display: none;
+}
 
 .slider-custom-cont{
 	width:100%;

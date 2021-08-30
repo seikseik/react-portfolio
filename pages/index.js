@@ -41,6 +41,7 @@ export default function Home({ projects, about }) {
   let sidepanelRef = useRef(null);
   let navRef = useRef(null);
   let slideShowRef = useRef([]);
+
   let aboutRef = useRef();
   let projectRef = useRef(null);
 
@@ -58,7 +59,6 @@ export default function Home({ projects, about }) {
   const [projMenu, setProjMenu] = useState({
     projMenu: null,
   })
-
   const [currentProj, setProj] = useState(null);
   const [viewport, setViewport] = useState({
     latitude: 44.734936,
@@ -101,7 +101,6 @@ const animProjOpen =()=>{
   let col1 = project.children[0];
   let col2 = project.children[1];
   let col1txt = col1.children;
-
   // anim titolo
   let animTitle = gsap.timeline(),
       titleSplit = new SplitText(col1txt[0], {type:"words,chars", wordsClass: "split-line"}),
@@ -136,6 +135,7 @@ const animProjClose =()=>{
   gsap.to(projectNavRef.current, {duration: 0.8, autoAlpha: 0, ease: "circ.out"});
 }
 
+
 // animazione contentuto progetto
   useEffect(() => {
     if(projectRef.current != null){
@@ -156,6 +156,7 @@ const animProjClose =()=>{
     }
   },[load])
 
+  // fly to cambio prog
   const onSelectProject = useCallback((latitude, longitude) => {
     setViewport({
       latitude,
@@ -166,6 +167,8 @@ const animProjClose =()=>{
       transitionEasing: easeCubic,
     });
   }, []);
+
+  // ref current slide
   const addToslideShowRef = (el) =>{
     if(el && !slideShowRef.current.includes(el)){
         slideShowRef.current.push(el);
@@ -207,11 +210,15 @@ const animProjClose =()=>{
       }
     });
   }
+
+// apri progetto da tasto
   const changeProject = (id) =>{
     openMenu();
     setProj(id);
     setProjMenu({projMenu: true});
   }
+
+// check se menu è aperto
   const checkMenuOpen = ()=>{
     if(aboutMenu){
       setAboutMenu({about: false});
