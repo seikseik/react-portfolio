@@ -1,7 +1,14 @@
 import Head from 'next/head'
 import { createClient } from "contentful"
+
+
 import { useState, useCallback, useRef , useEffect} from 'react';
-import ReactMapGL, {FlyToInterpolator} from 'react-map-gl';
+
+import {render} from 'react-dom';
+
+import ReactMapGL, {FlyToInterpolator, Source, Layer} from 'react-map-gl';
+
+
 import {easeCubic} from 'd3-ease';
 import { gsap } from "gsap";
 import { SplitText } from "gsap/dist/SplitText";
@@ -12,6 +19,7 @@ import Slideshow from "../components/swiper";
 import About from "../components/about";
 import Project from "../components/project";
 import Loader from "../components/loader";
+
 
 
 export async function getStaticProps(){
@@ -35,7 +43,9 @@ export async function getStaticProps(){
   }
 }
 
+
 export default function Home({ projects, about }) {
+
 
   let loaderRef = useRef(null);
   let sidepanelRef = useRef(null);
@@ -67,6 +77,7 @@ export default function Home({ projects, about }) {
     bearing: 0,
     pitch: 0
   }, [1]);
+
 
 // animazione contentuto about
   useEffect(() => {
@@ -229,6 +240,8 @@ const animProjClose =()=>{
   }
 
 
+
+
   return (
     <>
     <Head>
@@ -271,6 +284,7 @@ const animProjClose =()=>{
               transitionInterpolator={new FlyToInterpolator()}
               dragRotate={false}
             />
+          
       </div>
 
     </div>

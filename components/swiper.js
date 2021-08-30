@@ -90,27 +90,9 @@ const params = {
     grabCursor: true,
   };
 
-const projNavigation=(e)=>{
-console.log(currentProjRef);
-currentProjRef.current.forEach((item, i) => {
-  if(item.classList.contains("active")){
-    changeProjectFromNav(item.id);
-  }
-});
-}
-
   return (
     <div ref={forwardedRef} className="slider-custom-cont">
-    <div ref={projNavRef} className="project-navigation">
-      <span onClick={(e) => projNavigation(e)} className="prevProj">PREV</span>
-      <span onClick={(e) => projNavigation(e)} className="nextProj">NEXT</span>
-    </div>
-
     <Swiper {...params}
-      navigation={{
-          prevEl: ".prevProj",
-          nextEl: ".nextProj",
-        }}
       pagination={{ clickable: true }}
       onSlideNextTransitionStart={() => startAnimationNext()}
       onSlidePrevTransitionStart={() => startAnimationPrev()}

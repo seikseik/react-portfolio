@@ -227,14 +227,20 @@ html{
       }
 
       span{
-        padding: 8px 15px;
+        padding: 10px 18px;
         font-size: 15px;
         line-height: 1;
-        border-radius: 50px;
+        border-radius: 60px;
         background: white;
+				border:1px solid white;
         color:black;
 				font-family:"Söhne";
 				mix-blend-mode: exclusion;
+				&:hover{
+					color:white;
+					background: 0;
+					border:1px solid white;
+				}
       }
       h4{
         font-size: 20px;
@@ -310,19 +316,21 @@ html{
 			width:50%;
 			display: flex;
 			a{
-				padding: 8px 15px;
+				padding: 8px 18px;
 				font-size: 15px;
-				line-height: 1.1;
 				border-radius: 50px;
-				background: #e8f3fe;
-				color: black;
+				background: 0;
+				line-height: 1;
+				color: #e8f3fe;
+				border:1px solid #e8f3fe;
 				margin-right: $spacing;
 				text-decoration: none;
 				font-family: "Söhne";
 				mix-blend-mode: exclusion;
-				transition: .2s ease;
+				transition: .25s ease;
 				&:hover{
-					background: white;
+					background: #e8f3fe;
+					color:black;
 				}
 			}
 		}
@@ -374,4 +382,68 @@ html{
 			}
 		}
 	}
+}
+
+// mobile
+
+@media screen and (max-width: 768px) {
+	.swiper-container .swiper-slide .slide-inner .title{
+		font-size: 40px;
+		line-height: normal;
+		margin-bottom: 0;
+	}
+	.swiper-wrapper .swiper-slide:first-child .title{
+		font-size: 30px;
+		line-height: normal;
+	}
+	.swiper-container .swiper-slide .slide-inner h4{
+		font-size: 16px;
+	}
+	.swiper-container .swiper-slide .slide-inner{
+		padding-bottom: $spacing*2;
+	}
+.side-content-project .project-container{
+	flex-direction: column;
+	.left-col{
+		position: relative;
+		top:unset;
+		height: auto;
+		width:100%;
+		margin-top: $spacing*3;
+		h1{
+			font-size: 40px;
+		}
+		.proj-credit{
+			flex-wrap: wrap;
+			flex-direction: column-reverse;
+			margin-top: $spacing;
+			.proj-col-left{
+				width:100%;
+				margin-top: $spacing;
+			}
+			.proj-col-right{
+				width: 100%;
+			}
+		}
+	}
+	.right-col{
+		width:100%;
+		padding:$spacing;
+	}
+}
+
+.side-content{
+	padding: $spacing;
+	padding-top: $spacing*3;
+	flex-direction: column;
+	overflow: scroll;
+	.left-col{
+		width:100%;
+		font-size: 16px;
+	}
+	.right-col{
+		width:100%;
+	}
+}
+
 }
