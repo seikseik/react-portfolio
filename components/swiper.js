@@ -68,7 +68,7 @@ const startAnimationPrev = () =>{
 
 const initAnimation = () =>{
     let item = titleRefs.current[0]
-    textAnimation(item, 0.2);
+    textAnimation(item, 0.4);
   }
 
 const params = {

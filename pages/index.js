@@ -1,11 +1,7 @@
 import Head from 'next/head'
 import { createClient } from "contentful"
-
-
 import { useState, useCallback, useRef , useEffect} from 'react';
-
 import {render} from 'react-dom';
-
 import ReactMapGL, {FlyToInterpolator, Source, Layer} from 'react-map-gl';
 
 
@@ -48,6 +44,7 @@ export default function Home({ projects, about }) {
 
 
   let loaderRef = useRef(null);
+
   let sidepanelRef = useRef(null);
   let navRef = useRef(null);
   let slideShowRef = useRef([]);
@@ -167,6 +164,7 @@ const animProjClose =()=>{
     }
   },[load])
 
+
   // fly to cambio prog
   const onSelectProject = useCallback((latitude, longitude) => {
     setViewport({
@@ -284,7 +282,7 @@ const animProjClose =()=>{
               transitionInterpolator={new FlyToInterpolator()}
               dragRotate={false}
             />
-          
+
       </div>
 
     </div>
