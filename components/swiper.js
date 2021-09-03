@@ -113,7 +113,19 @@ const params = {
 
                  {item.fields.subtitle ?   <h4>{item.fields.subtitle}</h4> : ''}
 
-                  {item.fields.subtitle ?  <span ref={addToProjRefs} id={item.sys.id} className={"index-btn " + (isActive ? 'active' : '')} data-attr={item.fields.subtitle} onClick={()=>changeProject(item.sys.id)}> See the project</span> : ''}
+
+                  {item.fields.subtitle ? <div ref={addToProjRefs} id={item.sys.id} className={"button button--atlas" + (isActive ? ' active' : '')} data-attr={item.fields.subtitle} onClick={()=>changeProject(item.sys.id)}>
+                  <span>See the project</span>
+        						<div className="marquee" aria-hidden="true">
+        							<div className="marquee__inner">
+        								<span>See the project</span>
+        								<span>See the project</span>
+        								<span>See the project</span>
+        								<span>See the project</span>
+        							</div>
+        						</div>
+                </div>: ''}
+
               </div>
               )}
             </SwiperSlide>

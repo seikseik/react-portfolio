@@ -4,8 +4,19 @@
   src:
     url("./fonts/soehne-web-buch.eot?#iefix") format("embedded-opentype"),
     url("./fonts/soehne-web-buch.woff") format("woff"),
-    url("./fonts/soehne-web-buch.woff2") format("woff2"); /* Modern Browsers */
+    url("./fonts/soehne-web-buch.woff2") format("woff2");
+  font-style: normal;
+  font-weight: normal;
+  text-rendering: optimizeLegibility;
+}
 
+@font-face {
+  font-family: "Söhne-Bold";
+  src: url("./fonts/Söhne-Kräftig.eot"); /* IE9 Compat Modes */
+  src:
+    url("./fonts/Söhne-Kräftig.eot?#iefix") format("embedded-opentype"),
+    url("./fonts/Söhne-Kräftig.woff") format("woff"),
+    url("./fonts/Söhne-Kräftig.woff2") format("woff2");
   font-style: normal;
   font-weight: normal;
   text-rendering: optimizeLegibility;

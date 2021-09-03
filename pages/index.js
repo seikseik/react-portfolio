@@ -4,7 +4,6 @@ import { useState, useCallback, useRef , useEffect} from 'react';
 import {render} from 'react-dom';
 import ReactMapGL, {FlyToInterpolator, Source, Layer} from 'react-map-gl';
 
-
 import {easeCubic} from 'd3-ease';
 import { gsap } from "gsap";
 import { SplitText } from "gsap/dist/SplitText";
@@ -15,6 +14,7 @@ import Slideshow from "../components/swiper";
 import About from "../components/about";
 import Project from "../components/project";
 import Loader from "../components/loader";
+import Pins from "../components/pin";
 
 
 
@@ -67,6 +67,7 @@ export default function Home({ projects, about }) {
     projMenu: null,
   })
   const [currentProj, setProj] = useState(null);
+
   const [viewport, setViewport] = useState({
     latitude: 44.734936,
     longitude: 11.017421,
@@ -165,16 +166,52 @@ const animProjClose =()=>{
   },[load])
 
 
+  // layer
+
+  const [point, setPoint] = useState({
+    coordinates: [0, 0]
+  })
+
+  const geojson = {
+    type: 'FeatureCollection',
+    features: [
+      {type: 'Feature', geometry: {type: 'Point', coordinates: point.coordinates}}
+    ]
+  };
+
+  const layerStyle = {
+    id: 'point',
+    type: 'circle',
+    paint: {
+      'circle-radius': 10,
+      'circle-color': 'black'
+    }
+  };
+
+
   // fly to cambio prog
   const onSelectProject = useCallback((latitude, longitude) => {
+    let zoom2;
+    if(slideShowRef.current[0].classList.contains("active")){
+      zoom2 = 6.08
+      setPoint({
+        coordinates: [0, 0]
+      })
+    }else{
+      zoom2 = 9
+      setPoint({
+        coordinates: [longitude, latitude]
+      })
+    }
     setViewport({
       latitude,
       longitude,
-      zoom: 9,
+      zoom: zoom2,
       transitionDuration: 2000,
       transitionInterpolator: new FlyToInterpolator(),
       transitionEasing: easeCubic,
     });
+
   }, []);
 
   // ref current slide
@@ -240,6 +277,7 @@ const animProjClose =()=>{
 
 
 
+
   return (
     <>
     <Head>
@@ -249,6 +287,7 @@ const animProjClose =()=>{
     </Head>
 
     <Loader forwardedRef={loaderRef} />
+
     <div className="home_container">
 
       <div className="navbar">
@@ -272,16 +311,25 @@ const animProjClose =()=>{
         <ReactMapGL
               {...viewport}
               width="100%"
-              onLoad ={()=> setLoad({
-                  load:true
-                })}
+              onLoad ={()=> {
+                setLoad({
+                    load:true
+                  })}
+
+              }
               height="100%"
               mapStyle="mapbox://styles/matteosacchi/ckr0ipix41y8p17mxlnaqerk7"
               mapboxApiAccessToken={process.env.customKey}
               onViewportChange={setViewport}
               transitionInterpolator={new FlyToInterpolator()}
               dragRotate={false}
-            />
+            >
+
+            <Pins latitude={point.coordinates[1]} longitude={point.coordinates[0]} />
+
+
+        </ReactMapGL>
+
 
       </div>
 
