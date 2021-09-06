@@ -17,8 +17,15 @@ export default function Project({ forwardedRef, currentProj, projects}) {
               {documentToReactComponents(item.fields.content1)}
               <div className="proj-credit">
                 <div className="proj-col-left">
-                  {item.fields.link ? (<a target="_blank" href={item.fields.link}>See project</a>) : (null)}
-                  {item.fields.link2 ? (<a target="_blank" href={item.fields.link2}>See project</a>) : (null)}
+                  {item.fields.link ? (
+                    <a target="_blank" href={item.fields.link}>{item.fields.label}</a>
+                  ) : (null)}
+                  {item.fields.link2 ? (
+                    <a target="_blank" href={item.fields.link2}>{item.fields.label2}</a>
+                  ) : (null)}
+                  {item.fields.link3 ? (
+                    <a target="_blank" href={item.fields.link3}>{item.fields.label3}</a>
+                  ) : (null)}
                 </div>
                 <div className="proj-col-right">
                   CREDITS:

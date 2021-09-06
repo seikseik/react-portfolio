@@ -81,14 +81,18 @@ export default function Home({ projects, about }) {
   useEffect(() => {
       let tl = gsap.timeline();
       let col1 = aboutRef.current.children[0]
+      let col2 = aboutRef.current.children[1]
       let col1p = col1.children
+      let col2p = col2.children[1]
     if(aboutMenu.about){
       let mySplitText = new SplitText(col1p, {type:"lines", wordsClass: "split-line"
     })
     let words = mySplitText.lines;
     gsap.set(col1p, {perspective: 400});
+    gsap.set(col2p,{  autoAlpha: 0});
+
       tl.set(aboutRef.current, { opacity: 0});
-      tl.to(aboutRef.current, { x: "0%", duration: 0.5, ease: "Power4.easeOut",});
+      tl.to(aboutRef.current, { x: "0%", duration: 0.4, ease: "Power4.easeOut",});
       tl.to(aboutRef.current,{  duration: 0.3, autoAlpha: 1,ease: "circ.out",});
       tl.fromTo(words, {autoAlpha: 0},
         {  duration: 0.3,
@@ -97,6 +101,7 @@ export default function Home({ projects, about }) {
              stagger: 0.018
         },
         "+=0");
+      tl.to(col2p,{  duration: 0.3, autoAlpha: 1, ease: "circ.out", delay: -0.4});
     }else{
       tl.to(aboutRef.current,{  duration: 0.3, autoAlpha: 0, ease: "circ.out",});
       tl.to(aboutRef.current, { x: "100%", duration: 1, ease: "Power4.easeOut",});
@@ -188,7 +193,6 @@ const animProjClose =()=>{
     }
   };
 
-
   // fly to cambio prog
   const onSelectProject = useCallback((latitude, longitude) => {
     let zoom2;
@@ -222,20 +226,32 @@ const animProjClose =()=>{
     }
 
   const openMenu = () => {
+      let navContainer = navRef.current.children[0]
+      let nav = navContainer.children[0]
+
+
       gsap.to(sidepanelRef.current, { x: "0%", duration: 1, ease: "Power4.easeOut",});
       setMenu({
         open: true,
       })
 
+      gsap.to(nav, { autoAlpha: 0, duration: 0.5, ease: "Power4.easeOut",});
+
       slideShowRef.current.forEach((item, i) => {
         gsap.to(item, { autoAlpha: 0, duration: 0.8, ease: "Power4.easeOut"});
       });
     };
+
   const closeMenu = () => {
+    let navContainer = navRef.current.children[0]
+    let nav = navContainer.children[0]
+
       gsap.to(sidepanelRef.current, { x: "100%", duration: 0.8, ease: "Power4.easeOut", delay: 0.3});
       setMenu({
         open: false,
       })
+
+      gsap.to(nav, { autoAlpha: 1, duration: 0.5, ease: "Power4.easeOut",});
 
       slideShowRef.current.forEach((item, i) => {
             gsap.to(item, { autoAlpha: 1, duration: 1, ease: "Power4.easeOut"});
@@ -276,8 +292,6 @@ const animProjClose =()=>{
 
 
 
-
-
   return (
     <>
     <Head>
@@ -303,7 +317,7 @@ const animProjClose =()=>{
 
       <About forwardedRef={aboutRef} about={about}/>
 
-      <Slideshow changeProjectFromNav={changeProjectFromNav} changeProject={changeProject} load={load} changeCoord={changeCoord} addToslideShowRef={addToslideShowRef} forwardedRef={slideShowRef, navRef} projNavRef={projectNavRef} project={projects}/>
+      <Slideshow  changeProjectFromNav={changeProjectFromNav} changeProject={changeProject} load={load} changeCoord={changeCoord} addToslideShowRef={addToslideShowRef} forwardedRef={slideShowRef, navRef} projNavRef={projectNavRef} project={projects}/>
 
       <Sidepanel forwardedRef={sidepanelRef} />
 
@@ -315,7 +329,6 @@ const animProjClose =()=>{
                 setLoad({
                     load:true
                   })}
-
               }
               height="100%"
               mapStyle="mapbox://styles/matteosacchi/ckr0ipix41y8p17mxlnaqerk7"
@@ -325,8 +338,7 @@ const animProjClose =()=>{
               dragRotate={false}
             >
 
-            <Pins latitude={point.coordinates[1]} longitude={point.coordinates[0]} />
-
+            <Pins menu={menu} latitude={point.coordinates[1]} longitude={point.coordinates[0]} />
 
         </ReactMapGL>
 

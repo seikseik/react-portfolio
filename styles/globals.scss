@@ -145,12 +145,25 @@ html{
 	.logo h1{
 		color:white;
 		font-family:"Söhne-Bold";
+		padding: 2px 0px;
 	}
   z-index: 4;
 	.navlink{
 		color:white;
 		font-family:"Söhne-Bold";
+		padding: 2px 8px;
+		line-height: 1.3;
 		cursor: pointer;
+		&.open{
+			background: 0;
+			color:white;
+			border:1px solid;
+			border-radius: 60px;
+			&:hover{
+				background: white;
+				color:black;
+			}
+		}
 	}
 }
 
@@ -294,35 +307,35 @@ html{
 	.proj-credit{
 		display: flex;
 		margin-top:$spacing*2;
+		flex-wrap: wrap;
 		.proj-col-left{
-			width:50%;
 			display: flex;
+			margin-bottom: $spacing;
 			a{
-				padding: 8px 18px;
 				font-size: 15px;
-				border-radius: 50px;
 				background: 0;
 				line-height: 1;
 				color: #e8f3fe;
-				border:1px solid #e8f3fe;
+				border-bottom:1px solid #e8f3fe;
 				margin-right: $spacing;
 				text-decoration: none;
 				font-family: "Söhne";
 				mix-blend-mode: exclusion;
 				transition: .25s ease;
+				height: 22px;
+				min-width: fit-content;
 				&:hover{
-					background: #e8f3fe;
-					color:black;
+					opacity: .7;
 				}
 			}
 		}
 		.proj-col-right{
-			width:50%;
 			display: flex;
 			flex-direction: column;
 			font-size: 13px;
 			color:#e8f3fe;
 			font-family: "Söhne";
+			min-width: 80%;
 		}
 	}
 }
@@ -415,14 +428,16 @@ html{
 		}
 		.proj-credit{
 			flex-wrap: wrap;
-			flex-direction: column-reverse;
+			flex-direction: column;
 			margin-top: $spacing;
 			.proj-col-left{
 				width:100%;
-				margin-top: $spacing;
 			}
 			.proj-col-right{
 				width: 100%;
+				font-size: 14px;
+				margin-top: $spacing;
+
 			}
 		}
 	}
@@ -434,8 +449,8 @@ html{
 
 .side-content{
 	padding: $spacing;
-	padding-top: $spacing*3;
-	flex-direction: column;
+	padding-top: $spacing*5;
+	flex-direction: column-reverse;
 	overflow: scroll;
 	.left-col{
 		width:100%;
@@ -443,6 +458,7 @@ html{
 	}
 	.right-col{
 		width:100%;
+		margin-bottom: $spacing*2;
 	}
 }
 
@@ -472,6 +488,11 @@ html{
   margin: 11px 0px 0px -12px;
   z-index: -2;
 	transform: scale(0.8);
+	transition: opacity .5s ease;
+	opacity: 1;
+	&.active{
+		opacity: 0;
+	}
 }
 
 .pulse:after {

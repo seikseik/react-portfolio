@@ -7,7 +7,7 @@ SwiperCore.use([Navigation, Pagination, A11y, Mousewheel, EffectFade]);
 import { gsap } from "gsap";
 import { SplitText } from "gsap/dist/SplitText";
 
-export default function Slideshow({project, addToslideShowRef, changeCoord, load, forwardedRef, changeProject, projNavRef, changeProjectFromNav}) {
+export default function Slideshow({project, addToslideShowRef, changeCoord, load, forwardedRef, changeProject, projNavRef, changeProjectFromNav, backSlide}) {
 
 let titleRefs = useRef([]);
 titleRefs.current = [];
@@ -27,7 +27,7 @@ const addToProjRefs = (el) =>{
   }
 
 useEffect(()=>{
-    if(load){
+    if(load.load){
       initAnimation();
     }
 }, [load])
@@ -68,7 +68,7 @@ const startAnimationPrev = () =>{
 
 const initAnimation = () =>{
     let item = titleRefs.current[0]
-    textAnimation(item, 0.4);
+    textAnimation(item, 0.45);
   }
 
 const params = {
@@ -78,21 +78,26 @@ const params = {
     slidesPerView: 1,
     centeredSlides: true,
     speed: 1000,
+
     effect: "fade",
     fadeEffect: {
       crossFade: true
     },
     mousewheel: {
-      sensitivity: 6,
+      sensitivity: 8,
+      thresholdDelta: 10,
     },
     watchSlidesProgress: true,
     keyboard: true,
     grabCursor: true,
-  };
+};
+
+  const [swiper, setSwiper] = useState(null);
+
 
   return (
     <div ref={forwardedRef} className="slider-custom-cont">
-    <Swiper {...params}
+    <Swiper onSwiper={setSwiper} {...params}
       pagination={{ clickable: true }}
       onSlideNextTransitionStart={() => startAnimationNext()}
       onSlidePrevTransitionStart={() => startAnimationPrev()}
