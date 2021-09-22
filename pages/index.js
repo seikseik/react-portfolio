@@ -162,13 +162,13 @@ const animProjClose =()=>{
   },[projMenu]);
 
 // animazione loader
-  useEffect(() =>{
-    if(load){
-    let tl = gsap.timeline()
-    tl.to(loaderRef.current.children[0], { autoAlpha: 0, duration: 0.4, ease: "Power3.easeInOut", delay: 1}),
-    tl.to(loaderRef.current, { autoAlpha: 0, duration: 0.6, ease: "Power3.easeInOut", display: "none"});
-    }
-  },[load])
+  // useEffect(() =>{
+  //   if(load){
+  //   let tl = gsap.timeline()
+  //   tl.to(loaderRef.current.children[0], { autoAlpha: 0, duration: 0.6, ease: "Power3.easeInOut", delay: 1}),
+  //   tl.to(loaderRef.current, { autoAlpha: 0, duration: 0.6, ease: "Power3.easeInOut", display: "none"});
+  //   }
+  // },[load])
 
 
   // layer
@@ -291,6 +291,7 @@ const animProjClose =()=>{
   }
 
 
+  // <Loader forwardedRef={loaderRef} />
 
   return (
     <>
@@ -300,7 +301,6 @@ const animProjClose =()=>{
         <link href="/fonts.css" rel="stylesheet"/>
     </Head>
 
-    <Loader forwardedRef={loaderRef} />
 
     <div className="home_container">
 

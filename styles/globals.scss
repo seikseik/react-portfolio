@@ -65,49 +65,51 @@ html{
   min-height: 100vh;
 }
 
-.loader{
-	height: 100vh;
-	position: fixed;
-	top:0;
-	width:100vw;
-	background: black;
-	z-index: 99;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	overflow: hidden;
-}
+// .loader{
+// 	height: 100vh;
+// 	position: fixed;
+// 	top:0;
+// 	width:100vw;
+// 	background: black;
+// 	z-index: 99;
+// 	display: flex;
+// 	justify-content: center;
+// 	align-items: center;
+// 	overflow: hidden;
+// }
 /* SOLAR SYSTEM */
+//
+// .name-anim {
+// 	width: 60px;
+// 	height: 60px;
+// 	color: white;
+// 	font-size: 30px;
+//   -webkit-animation: spin3D 1.5s linear 0s infinite;
+// 	font-family:"Söhne";
+// 	transform-origin: 50% 50%;
+// 	text-align: center;
+// }
+//
+//
+// @keyframes spin {
+//   from {
+//     transform: rotate(0);
+//   }
+//   to{
+//     transform: rotate(359deg);
+//   }
+// }
+//
+// @keyframes spin3D {
+//   from {
+//     transform: rotate3d(0,0.5,0, 360deg);
+//   }
+//   to{
+//     transform: rotate3d(0deg);
+//   }
+// }
 
-.name-anim {
-	width: 60px;
-	height: 60px;
-	color: white;
-	font-size: 30px;
-  -webkit-animation: spin3D 1.5s linear 0s infinite;
-	font-family:"Söhne";
-	transform-origin: 50% 50%;
-	text-align: center;
-}
 
-
-@keyframes spin {
-  from {
-    transform: rotate(0);
-  }
-  to{
-    transform: rotate(359deg);
-  }
-}
-
-@keyframes spin3D {
-  from {
-    transform: rotate3d(0,0.5,0, 360deg);
-  }
-  to{
-    transform: rotate3d(0deg);
-  }
-}
 
 
 .map_container {
@@ -208,6 +210,11 @@ html{
   .swiper-slide{
 		height: 100vh;
 		transition-timing-function:cubic-bezier(0,1.63,.79,1.09);
+		&:first-child{
+			.title{
+				opacity: 0;
+			}
+		}
     .slide-inner{
       height: 100vh;
       padding:$spacing;
@@ -322,7 +329,7 @@ html{
 				font-family: "Söhne";
 				mix-blend-mode: exclusion;
 				transition: .25s ease;
-				height: 22px;
+				height: 19px;
 				min-width: fit-content;
 				&:hover{
 					opacity: .7;

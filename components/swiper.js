@@ -38,7 +38,6 @@ const textAnimation = (item, del) =>{
     }),
     chars = mySplitText.chars;
     gsap.set(item, {perspective: 400});
-
   tl.fromTo(chars, {autoAlpha: 0},
     {  duration: 1,
          autoAlpha: 1,
@@ -68,7 +67,8 @@ const startAnimationPrev = () =>{
 
 const initAnimation = () =>{
     let item = titleRefs.current[0]
-    textAnimation(item, 0.45);
+    gsap.set(item, {opacity: 1});
+    textAnimation(item, 0);
   }
 
 const params = {
