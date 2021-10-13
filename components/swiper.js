@@ -4,9 +4,6 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 SwiperCore.use([Navigation, Pagination, A11y, Mousewheel, EffectFade]);
 
-import { gsap } from "gsap";
-import { SplitText } from "gsap/dist/SplitText";
-
 export default function Slideshow({project, addToslideShowRef, changeCoord, load, forwardedRef, changeProject, projNavRef, changeProjectFromNav, backSlide}) {
 
 let titleRefs = useRef([]);

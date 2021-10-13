@@ -4,7 +4,6 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import ReactPlayer from 'react-player/lazy'
 
 import 'react-lazy-load-image-component/src/effects/blur.css';
-// import { gsap } from "gsap";
 
 const Loading = (
       <img

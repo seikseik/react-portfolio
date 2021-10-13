@@ -5,8 +5,7 @@ import {render} from 'react-dom';
 import ReactMapGL, {FlyToInterpolator, Source, Layer} from 'react-map-gl';
 
 import {easeCubic} from 'd3-ease';
-// import { gsap } from "gsap";
-// import { SplitText } from "gsap/dist/SplitText";
+
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 import Sidepanel from "../components/sidepanel";
