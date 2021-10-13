@@ -4,8 +4,14 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import ReactPlayer from 'react-player/lazy'
 
 import 'react-lazy-load-image-component/src/effects/blur.css';
-import { gsap } from "gsap";
+// import { gsap } from "gsap";
 
+const Loading = (
+      <img
+        src="https://i.pinimg.com/originals/78/e8/26/78e826ca1b9351214dfdd5e47f7e2024.gif"
+        alt="loader"
+      />
+    );
 
 export default function Project({ forwardedRef, currentProj, projects}) {
   const current = projects.map((item) => {
@@ -27,22 +33,25 @@ export default function Project({ forwardedRef, currentProj, projects}) {
                     <a target="_blank" href={item.fields.link3}>{item.fields.label3}</a>
                   ) : (null)}
                 </div>
+                  {item.fields.credits ? (
                 <div className="proj-col-right">
-                  CREDITS:
+                  <span>CREDITS</span>
                   {documentToReactComponents(item.fields.credits)}
-                </div>
+                </div>)
+                : (null)}
               </div>
             </div>
             <div className="right-col">
               <div className="image-container">
                 {
                   item.fields.gallery.map((el) => {
-                    if(el.fields.file.contentType == "image/png" || el.fields.file.contentType == "image/jpg" ){
+                    if(el.fields.file.contentType == "image/png" || el.fields.file.contentType == "image/jpeg" || el.fields.file.contentType == "image/jpg" ){
                       return(
-                        <LazyLoadImage
+                        <LazyLoadImage placeholder={Loading}
                          key={el.sys.id}
                          alt=""
                          effect="blur"
+                         beforeLoad={()=>console.log("ciao")}
                          src={"http:"+el.fields.file.url} />
                       )
                     }

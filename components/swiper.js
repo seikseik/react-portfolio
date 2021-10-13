@@ -78,7 +78,11 @@ const params = {
     slidesPerView: 1,
     centeredSlides: true,
     speed: 1000,
-
+    allowTouchMove: false,
+    navigation: {
+     nextEl: '.swiper-button-next',
+     prevEl: '.swiper-button-prev',
+   },
     effect: "fade",
     fadeEffect: {
       crossFade: true
@@ -90,6 +94,10 @@ const params = {
     watchSlidesProgress: true,
     keyboard: true,
     grabCursor: true,
+    preventClicks: true,
+    preventClicksPropagation: true,
+    touchMoveStopPropagation: true
+
 };
 
   const [swiper, setSwiper] = useState(null);

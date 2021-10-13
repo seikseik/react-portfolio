@@ -140,7 +140,7 @@ html{
   top:0;
   left: 0;
   width: 100%;
-  padding: $spacing;
+  padding: $spacing $spacing*2;
   display: flex;
   justify-content: space-between;
 	mix-blend-mode: difference;
@@ -217,7 +217,7 @@ html{
 		}
     .slide-inner{
       height: 100vh;
-      padding:$spacing;
+      padding:$spacing*2;
 			padding-bottom: $spacing*3;
       display: flex;
       align-items: flex-start;
@@ -226,28 +226,18 @@ html{
       mix-blend-mode: difference;
       flex-direction: column;
       .title{
-        font-size: 10vw;
+        font-size: 9vw;
         color:white;
-        line-height: 10vw;
+				// text-transform: uppercase;
+        line-height: 9vw;
         mix-blend-mode: exclusion;
 				margin-bottom: 5px;
       }
-
-      // span{
-      //   padding: 10px 18px;
-      //   font-size: 15px;
-      //   line-height: 1;
-      //   border-radius: 60px;
-      //   background: white;
-			// 	border:1px solid white;
-      //   color:black;
-			// 	font-family:"Söhne";
-			// 	mix-blend-mode: exclusion;
-      // }
       h4{
         font-size: 20px;
         color:white;
         margin-bottom: $spacing;
+				margin-top: 7px;
       }
     }
   }
@@ -268,6 +258,7 @@ html{
 			.title{
 				font-size: 6vw;
 				line-height: 6vw;
+				text-transform: unset;
 			}
 		}
 	}
@@ -295,31 +286,48 @@ html{
 			width:45%;
 			color:#e8f3fe;
 			mix-blend-mode: exclusion;
-			padding: $spacing;
+			padding: $spacing*2;
+			a{
+				color:#e8f3fe;
+				mix-blend-mode: exclusion;
+			}
 			h1{
 				font-size: 60px;
 				margin-bottom: $spacing;
 			}
-			p{line-height: 1.4;}
+			p{
+				line-height: 1.4;
+				font-size: 20px;
+			}
 		}
 		.right-col{
 			width:55%;
-			img{
+			.image-container{
+				padding: $spacing;
+				span:last-child{
+					img{margin-bottom: 0;}
+				}
+			}
+			img, video{
 				width:100%;
 				height: auto;
+				border-radius: 5px;
 				display:flex;
+				margin-bottom: 12px;
 			}
+
 		}
 	}
 	.proj-credit{
 		display: flex;
 		margin-top:$spacing*2;
 		flex-wrap: wrap;
+		flex-direction: column;
 		.proj-col-left{
 			display: flex;
 			margin-bottom: $spacing;
 			a{
-				font-size: 15px;
+				font-size: 16px;
 				background: 0;
 				line-height: 1;
 				color: #e8f3fe;
@@ -339,10 +347,18 @@ html{
 		.proj-col-right{
 			display: flex;
 			flex-direction: column;
-			font-size: 13px;
+			font-size: 16px;
 			color:#e8f3fe;
 			font-family: "Söhne";
 			min-width: 80%;
+			margin-top: $spacing;
+			span{
+				font-size: 14px;
+			}
+			p{
+				font-size: 14px;
+				margin-top: 5px;
+			}
 		}
 	}
 }
@@ -379,10 +395,10 @@ html{
 }
 .side-content{
 	display: flex;
-	padding:$spacing;
+	padding:$spacing*2;
 	padding-top:15vh;
 	.left-col{
-		font-size: 20px;
+		font-size: 30px;
 		width:60%;
 		padding-right: $spacing;
 		p{
@@ -390,14 +406,19 @@ html{
 		}
 	}
 	.right-col{
+		margin-left: $spacing*6;
 		width:40%;
 		img{
 			width:100%;
 			height: auto;
 		}
+		.playlist{
+			max-width: 80%;
+			margin-top: $spacing*3;
+		}
 		.info-about{
-			margin-top: $spacing;
 			p{
+				font-size: 16px;
 				padding-top: 3px;
 			}
 		}
@@ -407,9 +428,20 @@ html{
 // mobile
 
 @media screen and (max-width: 768px) {
+	.navbar .logo h1{
+		font-size: 18px;
+		line-height: 1;
+	}
+	.navbar .navlink{
+		font-size: 18px;
+		line-height: 1;
+	}
+	.navbar{
+		padding: $spacing 20px;
+	}
 	.swiper-container .swiper-slide .slide-inner .title{
 		font-size: 40px;
-		line-height: normal;
+		line-height: 44px;
 		margin-bottom: 0;
 	}
 	.swiper-wrapper .swiper-slide:first-child .title{
@@ -417,10 +449,11 @@ html{
 		line-height: normal;
 	}
 	.swiper-container .swiper-slide .slide-inner h4{
-		font-size: 16px;
+		font-size: 18px;
+		line-height: 1.45;
 	}
 	.swiper-container .swiper-slide .slide-inner{
-		padding-bottom: $spacing*2;
+		padding: $spacing*2 20px;
 	}
 .side-content-project .project-container{
 	flex-direction: column;
@@ -430,6 +463,8 @@ html{
 		height: auto;
 		width:100%;
 		margin-top: $spacing*3;
+		padding: $spacing*2 20px;
+		p{font-size: 18px;}
 		h1{
 			font-size: 40px;
 		}
@@ -439,6 +474,7 @@ html{
 			margin-top: $spacing;
 			.proj-col-left{
 				width:100%;
+				margin-top: $spacing;
 			}
 			.proj-col-right{
 				width: 100%;
@@ -451,21 +487,31 @@ html{
 	.right-col{
 		width:100%;
 		padding:$spacing;
+		.image-container{
+			padding: 5px;
+		}
 	}
 }
 
 .side-content{
-	padding: $spacing;
+	padding: 20px;
 	padding-top: $spacing*5;
-	flex-direction: column-reverse;
+	flex-direction: column;
 	overflow: scroll;
 	.left-col{
 		width:100%;
-		font-size: 16px;
+		font-size: 18px;
 	}
 	.right-col{
 		width:100%;
-		margin-bottom: $spacing*2;
+		margin-top: $spacing;
+		margin-left: 0;
+		.info-about p{
+			font-size: 18px;
+		}
+		.playlist{
+			max-width: 100%;
+		}
 	}
 }
 

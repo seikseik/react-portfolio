@@ -5,8 +5,8 @@ import {render} from 'react-dom';
 import ReactMapGL, {FlyToInterpolator, Source, Layer} from 'react-map-gl';
 
 import {easeCubic} from 'd3-ease';
-import { gsap } from "gsap";
-import { SplitText } from "gsap/dist/SplitText";
+// import { gsap } from "gsap";
+// import { SplitText } from "gsap/dist/SplitText";
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 import Sidepanel from "../components/sidepanel";
@@ -121,8 +121,10 @@ const animProjOpen =()=>{
     chars = titleSplit.chars;
     gsap.set(col1txt[0], {perspective: 400});
   animTitle.fromTo(chars, {autoAlpha: 0},{  duration: 1,autoAlpha: 1,ease: "circ.out",stagger: 0.03, delay: 1},"+=0");
+
   // anim testo
-  let mySplitText = new SplitText(col1txt[1], {type:"lines", wordsClass: "split-line"})
+  let targets = gsap.utils.toArray(col1txt);
+  let mySplitText = new SplitText(targets, {type:"lines", wordsClass: "split-line"})
 
   let words = mySplitText.lines;
   gsap.set(col1txt[1], {perspective: 400});
@@ -296,8 +298,24 @@ const animProjClose =()=>{
   return (
     <>
     <Head>
-        <title>Matteo Sacchi — Designer & Developer</title>
+
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta name="title" content="Matteo Sacchi — Designer & Developer" />
+        <meta name="description" content="Designer and Developer with a focus on data visualization and creative coding." />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://metatags.io/" />
+        <meta property="og:title" content="Matteo Sacchi — Designer & Developer" />
+        <meta property="og:description" content="Designer and Developer with a focus on data visualization and creative coding." />
+        <meta property="og:image" content="/meta.png" />
+
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content="https://metatags.io/" />
+        <meta property="twitter:title" content="Matteo Sacchi — Designer & Developer" />
+        <meta property="twitter:description" content="Designer and Developer with a focus on data visualization and creative coding." />
+        <meta property="twitter:image" content="/meta.png" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/gsap.min.js"></script>
+        <script src="/SplitText.min.js"></script>
         <link href="/fonts.css" rel="stylesheet"/>
     </Head>
 
