@@ -114,27 +114,24 @@ const params = {
                {({ isActive }) => (
 
                 <div ref={addToslideShowRef} className={"slide-inner " + (isActive ? 'active' : '')} lat={item.fields.lat} lon={item.fields.lon}>
+
+                {item.fields.subtitle ? <div ref={addToProjRefs} id={item.sys.id} data-attr={item.fields.subtitle} onClick={()=>changeProject(item.sys.id)}>
                 <h1
                    ref={addToRefs}
                    className={"title " + (isActive ? 'active' : '')}
                  >
                  {item.fields.title}
                  </h1>
+                </div> : <h1
+                   ref={addToRefs}
+                   className={"title " + (isActive ? 'active' : '')}
+                 >
+                 {item.fields.title}
+                 </h1>}
 
-                 {item.fields.subtitle ?   <h4>{item.fields.subtitle}</h4> : ''}
+              
 
 
-                  {item.fields.subtitle ? <div ref={addToProjRefs} id={item.sys.id} className={"button button--atlas" + (isActive ? ' active' : '')} data-attr={item.fields.subtitle} onClick={()=>changeProject(item.sys.id)}>
-                  <span>See the project</span>
-        						<div className="marquee" aria-hidden="true">
-        							<div className="marquee__inner">
-        								<span>See the project</span>
-        								<span>See the project</span>
-        								<span>See the project</span>
-        								<span>See the project</span>
-        							</div>
-        						</div>
-                </div>: ''}
 
               </div>
               )}

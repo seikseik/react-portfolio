@@ -322,7 +322,7 @@ const animProjClose =()=>{
     <div className="home_container">
 
       <div className="navbar">
-        <div className="logo"><h1>Matteo Sacchi</h1></div>
+        <div className="logo"><h1>MS</h1></div>
           {
             (menu.open)
             ?   <div onClick={(event) => { closeMenu(); checkMenuOpen();}} className="navlink open">Close</div>
