@@ -299,6 +299,8 @@ const animProjClose =()=>{
     <Head>
 
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+          <title>Matteo Sacchi — Designer & Developer</title>
+
         <meta name="title" content="Matteo Sacchi — Designer & Developer" />
         <meta name="description" content="Designer and Developer with a focus on data visualization and creative coding." />
 
