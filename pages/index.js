@@ -366,7 +366,7 @@ const animProjClose =()=>{
       </div>
 
     </div>
-  </Div100vh>
+    </Div100vh>
      </>
   )
 }

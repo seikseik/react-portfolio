@@ -92,9 +92,6 @@ const params = {
     keyboard: true,
     grabCursor: true,
     preventClicks: true,
-    // preventClicksPropagation: true,
-    // touchMoveStopPropagation: true
-
 };
 
   const [swiper, setSwiper] = useState(null);
