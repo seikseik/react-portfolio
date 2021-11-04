@@ -316,8 +316,8 @@ const animProjClose =()=>{
         <meta property="twitter:title" content="Matteo Sacchi — Designer & Developer" />
         <meta property="twitter:description" content="Designer and Developer with a focus on data visualization and creative coding." />
         <meta property="twitter:image" content="/meta.png" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/gsap.min.js"></script>
-        <script src="/SplitText.min.js"></script>
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/gsap.min.js"></script>
+        <script async src="/SplitText.min.js"></script>
         <link href="/fonts.css" rel="stylesheet"/>
     </Head>
 
