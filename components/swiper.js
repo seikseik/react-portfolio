@@ -75,7 +75,7 @@ const params = {
     slidesPerView: 1,
     centeredSlides: true,
     speed: 1000,
-    allowTouchMove: false,
+    // allowTouchMove: false,
     navigation: {
      nextEl: '.swiper-button-next',
      prevEl: '.swiper-button-prev',
