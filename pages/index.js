@@ -321,7 +321,6 @@ const animProjClose =()=>{
         <link href="/fonts.css" rel="stylesheet"/>
     </Head>
 
-    <Div100vh>
     <div className="home_container">
 
       <div className="navbar">
@@ -366,7 +365,6 @@ const animProjClose =()=>{
       </div>
 
     </div>
-    </Div100vh>
      </>
   )
 }
