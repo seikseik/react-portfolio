@@ -3,6 +3,7 @@ import { createClient } from "contentful"
 import { useState, useCallback, useRef , useEffect} from 'react';
 import {render} from 'react-dom';
 import ReactMapGL, {FlyToInterpolator, Source, Layer} from 'react-map-gl';
+import Div100vh from 'react-div-100vh'
 
 import {easeCubic} from 'd3-ease';
 
@@ -320,7 +321,7 @@ const animProjClose =()=>{
         <link href="/fonts.css" rel="stylesheet"/>
     </Head>
 
-
+    <Div100vh>
     <div className="home_container">
 
       <div className="navbar">
@@ -365,6 +366,7 @@ const animProjClose =()=>{
       </div>
 
     </div>
+  </Div100vh>
      </>
   )
 }

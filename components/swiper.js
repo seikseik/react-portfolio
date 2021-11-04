@@ -92,8 +92,8 @@ const params = {
     keyboard: true,
     grabCursor: true,
     preventClicks: true,
-    preventClicksPropagation: true,
-    touchMoveStopPropagation: true
+    // preventClicksPropagation: true,
+    // touchMoveStopPropagation: true
 
 };
 
@@ -115,23 +115,18 @@ const params = {
 
                 <div ref={addToslideShowRef} className={"slide-inner " + (isActive ? 'active' : '')} lat={item.fields.lat} lon={item.fields.lon}>
 
-                {item.fields.subtitle ? <div ref={addToProjRefs} id={item.sys.id} data-attr={item.fields.subtitle} onClick={()=>changeProject(item.sys.id)}>
-                <h1
-                   ref={addToRefs}
-                   className={"title " + (isActive ? 'active' : '')}
-                 >
-                 {item.fields.title}
-                 </h1>
-                </div> : <h1
+                <div onClick={()=>changeProject(item.sys.id)} className="click-project"></div>
+                {item.fields.subtitle ?
+                  <div ref={addToProjRefs} id={item.sys.id} data-attr={item.fields.subtitle} onClick={()=>changeProject(item.sys.id)}>
+                    <h1 ref={addToRefs} className={"title " + (isActive ? 'active' : '')}>
+                      {item.fields.title}
+                    </h1>
+                  </div> : <h1
                    ref={addToRefs}
                    className={"title " + (isActive ? 'active' : '')}
                  >
                  {item.fields.title}
                  </h1>}
-
-              
-
-
 
               </div>
               )}
