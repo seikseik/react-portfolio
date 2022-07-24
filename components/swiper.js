@@ -1,6 +1,7 @@
 import {useState, useEffect, useRef } from "react";
 import SwiperCore, { Navigation, Pagination, Scrollbar, A11y, Mousewheel, EffectFade } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import Div100vh from 'react-div-100vh'
 
 SwiperCore.use([Navigation, Pagination, A11y, Mousewheel, EffectFade]);
 
@@ -115,6 +116,7 @@ const params = {
               <SwiperSlide key={item.sys.id}>
                {({ isActive }) => (
 
+                <Div100vh>
                 <div ref={addToslideShowRef} className={"slide-inner " + (isActive ? 'active' : '')} lat={item.fields.lat} lon={item.fields.lon}>
 
                 <div onClick={()=>changeProject(item.sys.id)} className="click-project"></div>
@@ -131,6 +133,7 @@ const params = {
                  </h1>}
 
               </div>
+              </Div100vh>
               )}
             </SwiperSlide>
             )

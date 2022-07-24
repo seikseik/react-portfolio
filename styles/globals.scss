@@ -489,15 +489,11 @@ html {
 	}
 	.swiper-container .swiper-slide .slide-inner{
 		height: 100%;
-		position: fixed;
-		bottom:0;
 		width:100%;
 	}
 	.swiper-container .swiper-slide .slide-inner .title{
 		font-size: 40px;
 		line-height: 44px;
-		bottom: calc(1rem + env(safe-area-inset-bottom));
-		position: absolute;
 	}
 	.swiper-container .swiper-slide .slide-inner.active .click-project{
 		display: none;
