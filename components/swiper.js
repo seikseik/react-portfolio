@@ -6,6 +6,7 @@ SwiperCore.use([Navigation, Pagination, A11y, Mousewheel, EffectFade]);
 
 export default function Slideshow({project, addToslideShowRef, changeCoord, load, forwardedRef, changeProject, projNavRef, changeProjectFromNav, backSlide}) {
 
+
 let titleRefs = useRef([]);
 titleRefs.current = [];
 const addToRefs = (el) =>{
@@ -24,7 +25,6 @@ const addToProjRefs = (el) =>{
   }
 
 useEffect(()=>{
-  console.log("load")
     if(load.load){
       initAnimation();
     }
