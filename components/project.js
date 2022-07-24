@@ -12,7 +12,10 @@ const Loading = (
       />
     );
 
+
+
 export default function Project({ forwardedRef, currentProj, projects}) {
+
   const current = projects.map((item) => {
     if(item.sys.id == currentProj){
       return(
@@ -50,7 +53,6 @@ export default function Project({ forwardedRef, currentProj, projects}) {
                          key={el.sys.id}
                          alt=""
                          effect="blur"
-                         beforeLoad={()=>console.log("ciao")}
                          src={"http:"+el.fields.file.url} />
                       )
                     }

@@ -18,7 +18,7 @@ import Pins from "../components/pin";
 
 
 
-export async function getServerSideProps(){
+export async function getStaticProps(){
     const client = createClient({
       space: process.env.CONTENTFUL_ID,
       accessToken:process.env.CONTENTFUL_TOKEN,

@@ -24,6 +24,7 @@ const addToProjRefs = (el) =>{
   }
 
 useEffect(()=>{
+  console.log("load")
     if(load.load){
       initAnimation();
     }
